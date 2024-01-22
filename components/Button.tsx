@@ -4,9 +4,15 @@ interface ButtonProps {
   children: React.ReactNode;
   variant?: "blue" | "gray" | "dark" | "ghost";
   onClick?: () => void;
+  styles?: string;
 }
 
-const Button = ({ children, onClick, variant = "blue" }: ButtonProps) => {
+const Button = ({
+  children,
+  onClick,
+  variant = "blue",
+  styles,
+}: ButtonProps) => {
   return (
     <button
       onClick={onClick}
@@ -18,7 +24,8 @@ const Button = ({ children, onClick, variant = "blue" }: ButtonProps) => {
           ? "bg-ash"
           : variant === "ghost"
           ? "bg-transparent border-2 border-dark-blue hover:bg-baby-blue"
-          : "bg-dark-blue text-white hover:bg-baby-blue hover:text-dark-blue"
+          : "bg-dark-blue text-white hover:bg-baby-blue hover:text-dark-blue",
+        styles
       )}
     >
       {children}
