@@ -8,10 +8,16 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      fontFamily: {
+        main: ['"Paytone One"', "sans-serif"],
+      },
+      colors: {
+        "baby-blue": "#9DCEF9",
+        ash: "#9EADBD",
+        "dark-blue": "#3A4856",
+      },
+      animation: {
+        loading: "loading 1.5s linear infinite",
       },
     },
   },
