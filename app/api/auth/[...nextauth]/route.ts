@@ -1,8 +1,8 @@
-import NextAuth, { AuthOptions } from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 
 import Google from "next-auth/providers/google";
 
-export const authOptions: AuthOptions = {
+export const authOptions: NextAuthOptions = {
   providers: [
     Google({
       clientId: process.env.NEXT_AUTH_GOOGLE_CLIENT_ID!,
@@ -20,9 +20,7 @@ export const authOptions: AuthOptions = {
           });
           return true;
         } catch (error) {
-          console.log(error);
-
-          throw new Error("User already exists");
+          throw new Error("Something went wrong");
         }
       }
       return true;

@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${font.className} relative overflow-hidden`}>
         <Navbar />
-        <main>{children}</main>
+        <main className="bg-neutral-100">{children}</main>
         <Image
           src={"/images/Logo.svg"}
           alt="Logo background"
