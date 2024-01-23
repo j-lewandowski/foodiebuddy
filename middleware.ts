@@ -1,13 +1,21 @@
-import { getSession } from "next-auth/react";
+import { getToken } from "next-auth/jwt";
 import { type NextRequest, NextResponse } from "next/server";
 
+const secret = process.env.NEXTAUTH_SECRET;
+const publicRoutes = ["/"];
+
 export async function middleware(request: NextRequest) {
-  // const session = await getSession();
-  // console.log(session);
-  // const userToken = request.cookies.token;
-  // console.log(userToken);
+  const token = await getToken({ req: request, secret });
+
+  if (!token && !publicRoutes.includes(request.nextUrl.pathname)) {
+    return NextResponse.redirect(new URL("/api/auth/signin", request.url));
+  }
+
+  if (token && publicRoutes.includes(request.nextUrl.pathname)) {
+    return NextResponse.redirect(new URL("/home", request.url));
+  }
 }
 
 export const config = {
-  matcher: ["/"], // public routes
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|Logo.svg).*)"],
 };
