@@ -4,6 +4,7 @@ import "../../globals.css";
 
 import Navbar from "@/app/_components/Navbar";
 import Image from "next/image";
+import { AuthProvider } from "@/providers/AuthProvider";
 
 const font = Paytone_One({ weight: "400", subsets: ["latin"] });
 
@@ -20,22 +21,24 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${font.className} relative overflow-hidden`}>
-        <Navbar />
-        <main className="bg-neutral-100">{children}</main>
-        <Image
-          src={"/images/Logo.webp"}
-          alt="Logo background"
-          width={500}
-          height={500}
-          className="absolute bottom-0 -left-52 rotate-45 opacity-60"
-        />
-        <Image
-          src={"/images/Logo.webp"}
-          alt="Logo background"
-          width={500}
-          height={500}
-          className="absolute top-28 right-0 -scale-x-100 rotate-12 opacity-60"
-        />
+        <AuthProvider>
+          <Navbar />
+          <main className="bg-neutral-100">{children}</main>
+          {/* <Image
+            src={"/images/Logo.webp"}
+            alt="Logo background"
+            width={500}
+            height={500}
+            className="absolute bottom-0 -left-52 rotate-45 opacity-60"
+          />
+          <Image
+            src={"/images/Logo.webp"}
+            alt="Logo background"
+            width={500}
+            height={500}
+            className="absolute top-28 right-0 -scale-x-100 rotate-12 opacity-60"
+          /> */}
+        </AuthProvider>
       </body>
     </html>
   );

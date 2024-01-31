@@ -18,6 +18,8 @@ const config: Config = {
       },
       animation: {
         loading: "loading 1.5s linear infinite",
+        "mobileDrawer-open": "slideDown 0.1s linear forwards",
+        "mobileDrawer-closed": "slideUp 0.1s linear forwards",
       },
     },
   },

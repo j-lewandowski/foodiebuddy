@@ -6,16 +6,25 @@ import { useState } from "react";
 
 import { IoMenu } from "react-icons/io5";
 import Drawer from "./Drawer";
+import { useMobileNavbar } from "@/hooks/useMobileNavbar";
+import { signOut, useSession } from "next-auth/react";
+import HamburgerIcon from "./HamburgerIcon";
+import MobileNavbarItem from "./MobileNavbarItem";
 
 const MobileNavbar = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { isOpen, onClose, onOpen } = useMobileNavbar();
+  const { status } = useSession();
 
   const toggleOpen = () => {
-    setIsOpen((state) => !state);
+    if (isOpen) {
+      onClose();
+    } else {
+      onOpen();
+    }
   };
 
   return (
-    <nav className="block w-full h-28 md:hidden text-white fixed top-3">
+    <nav className="block w-full h-28 md:hidden text-white fixed top-3 z-50">
       <div className="flex items-center justify-between px-4 bg-dark-blue rounded-lg mx-4 h-full shadow-2xl relative">
         <Link href="/" className="flex items-center justify-center">
           <Image
@@ -27,15 +36,26 @@ const MobileNavbar = () => {
           <span className="text-2xl">FOODIEBUDDY</span>
         </Link>
 
-        <IoMenu
-          className="text-white w-auto h-16 hover:cursor-pointer"
-          onClick={toggleOpen}
-        />
-        {isOpen && (
-          <Drawer>
-            <Link href="/home">Tierlsity</Link>
-          </Drawer>
-        )}
+        <HamburgerIcon />
+
+        <Drawer>
+          <div className="flex items-center w-full justify-around space-x-3 px-3">
+            {status === "authenticated" ? (
+              <>
+                <MobileNavbarItem>Tierlsity</MobileNavbarItem>
+                <MobileNavbarItem>Profil</MobileNavbarItem>
+                <MobileNavbarItem onClick={() => signOut({ callbackUrl: "/" })}>
+                  Wyloguj
+                </MobileNavbarItem>
+              </>
+            ) : (
+              <>
+                <MobileNavbarItem href="/signin">Zaloguj się</MobileNavbarItem>
+                <MobileNavbarItem>Zarejestruj się</MobileNavbarItem>
+              </>
+            )}
+          </div>
+        </Drawer>
       </div>
     </nav>
   );
