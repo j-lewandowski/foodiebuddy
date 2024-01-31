@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Paytone_One } from "next/font/google";
-import "../../globals.css";
+import "../globals.css";
 
 import Navbar from "@/app/_components/Navbar";
 import Image from "next/image";
@@ -20,10 +20,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${font.className} relative overflow-hidden`}>
+      <body className={`${font.className} relative`}>
         <AuthProvider>
           <Navbar />
-          <main className="bg-neutral-100">{children}</main>
+          <main className="bg-neutral-100 pt-36 md:pt-20 min-h-screen">
+            {children}
+          </main>
           {/* <Image
             src={"/images/Logo.webp"}
             alt="Logo background"

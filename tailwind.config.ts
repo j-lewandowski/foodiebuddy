@@ -14,6 +14,7 @@ const config: Config = {
       colors: {
         "baby-blue": "#9DCEF9",
         ash: "#9EADBD",
+        "dark-ash": "#869fac",
         "dark-blue": "#3A4856",
       },
       animation: {

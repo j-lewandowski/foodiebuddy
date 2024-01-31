@@ -12,7 +12,7 @@ export async function middleware(request: NextRequest) {
   }
 
   if (token && publicRoutes.includes(request.nextUrl.pathname)) {
-    return NextResponse.redirect(new URL("/home", request.url));
+    return NextResponse.redirect(new URL("/tiers", request.url));
   }
 }
 

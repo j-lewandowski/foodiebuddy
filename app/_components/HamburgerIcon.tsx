@@ -20,21 +20,21 @@ const HamburgerIcon = () => {
     >
       <div
         className={twMerge(
-          "w-12 h-2 bg-white rounded-lg",
-          isOpen && "transition-all duration-300 rotate-45 translate-y-[100%]"
+          "w-12 h-1.5 bg-white rounded-lg",
+          isOpen && "transition-all duration-300 rotate-45 translate-y-[110%]"
         )}
       ></div>
       <div
         className={twMerge(
-          "w-12 h-2 bg-white rounded-lg",
+          "w-12 h-1.5 bg-white rounded-lg",
           isOpen &&
             "transition-all duration-300 translate-x-full opacity-0 hidden"
         )}
       ></div>
       <div
         className={twMerge(
-          "w-12 h-2 bg-white rounded-lg",
-          isOpen && "transition-all duration-300 -rotate-45 -translate-y-[100%]"
+          "w-12 h-1.5 bg-white rounded-lg",
+          isOpen && "transition-all duration-300 -rotate-45 -translate-y-[110%]"
         )}
       ></div>
     </div>

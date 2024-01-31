@@ -8,7 +8,9 @@ const Drawer = ({ children }: { children: React.ReactNode }) => {
     <div
       className={twMerge(
         "w-full px-2 absolute top-[100%] left-0 -z-10 h-fit",
-        isOpen ? "animate-mobileDrawer-open" : "animate-mobileDrawer-closed"
+        isOpen
+          ? "animate-mobileDrawer-open shadow-2xl"
+          : "animate-mobileDrawer-closed"
       )}
     >
       <div className="w-full bg-baby-blue rounded-b-lg h-16 flex items-center justify-center left-0">

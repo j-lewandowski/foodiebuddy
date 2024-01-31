@@ -2,9 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 
-import { IoMenu } from "react-icons/io5";
 import Drawer from "./Drawer";
 import { useMobileNavbar } from "@/hooks/useMobileNavbar";
 import { signOut, useSession } from "next-auth/react";
@@ -33,7 +31,7 @@ const MobileNavbar = () => {
             width={100}
             alt="Logo"
           />
-          <span className="text-2xl">FOODIEBUDDY</span>
+          <span className="text-xl">FOODIEBUDDY</span>
         </Link>
 
         <HamburgerIcon />
@@ -42,7 +40,7 @@ const MobileNavbar = () => {
           <div className="flex items-center w-full justify-around space-x-3 px-3">
             {status === "authenticated" ? (
               <>
-                <MobileNavbarItem>Tierlsity</MobileNavbarItem>
+                <MobileNavbarItem>Tierlisty</MobileNavbarItem>
                 <MobileNavbarItem>Profil</MobileNavbarItem>
                 <MobileNavbarItem onClick={() => signOut({ callbackUrl: "/" })}>
                   Wyloguj

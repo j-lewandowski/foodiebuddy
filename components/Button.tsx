@@ -1,8 +1,10 @@
+import Link from "next/link";
 import { twMerge } from "tailwind-merge";
 
 interface ButtonProps {
   children: React.ReactNode;
   variant?: "blue" | "gray" | "dark" | "ghost";
+  href?: string;
   onClick?: () => void;
   styles?: string;
 }
@@ -12,8 +14,9 @@ const Button = ({
   onClick,
   variant = "blue",
   styles,
+  href,
 }: ButtonProps) => {
-  return (
+  const ButtonSchema = (
     <button
       onClick={onClick}
       className={twMerge(
@@ -31,6 +34,12 @@ const Button = ({
       {children}
     </button>
   );
+
+  if (href) {
+    return <Link href={href}>{ButtonSchema}</Link>;
+  }
+
+  return ButtonSchema;
 };
 
 export default Button;
