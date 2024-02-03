@@ -1,49 +1,45 @@
-"use client";
-
 import Button from "@/components/Button";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import MobileNavbar from "./MobileNavbar";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
+import { getServerSession } from "next-auth";
 
 type NavItem = {
   name: string;
   href?: string;
   variant?: "dark" | "ghost" | "blue" | "gray";
-  onClick?: () => void;
 };
 
-const Navbar = () => {
-  const { status } = useSession();
+const authenticatedNavItems = [
+  { name: "Tiery", href: "/tiers" },
+  { name: "Profil", href: "/profile" },
+  {
+    name: "Wyloguj się",
+    variant: "dark",
+    href: "api/auth/signout",
+  },
+];
+const unauthenticatedNavItems = [
+  {
+    name: "Zaloguj się",
+    href: "api/auth/signin",
+    variant: "ghost",
+  },
+  {
+    name: "Zarejestruj się",
+    href: "api/auth/signin",
+    variant: "dark",
+  },
+];
 
-  const navItems = useMemo((): NavItem[] => {
-    if (status !== "authenticated" && status !== "loading") {
-      return [
-        {
-          name: "Zaloguj się",
-          href: "/signin",
-          variant: "ghost",
-          onClick: () => signIn(),
-        },
-        {
-          name: "Zarejestruj się",
-          href: "/signin",
-          variant: "dark",
-          onClick: () => signIn(),
-        },
-      ];
-    }
-    return [
-      { name: "Tiery", href: "/tiers" },
-      { name: "Profil", href: "/profile" },
-      {
-        name: "Wyloguj się",
-        variant: "dark",
-        onClick: () => signOut({ callbackUrl: "/" }),
-      },
-    ];
-  }, [status]);
+const Navbar = async () => {
+  const session = await getServerSession();
+
+  const navItems = (
+    !session ? unauthenticatedNavItems : authenticatedNavItems
+  ) as NavItem[];
 
   return (
     <>
@@ -69,7 +65,6 @@ const Navbar = () => {
             <Button
               key={item.name}
               variant={item.variant ? item.variant : "ghost"}
-              onClick={item.onClick}
               href={item.href}
             >
               {item.name}

@@ -5,6 +5,8 @@ import "../globals.css";
 import Navbar from "@/app/_components/Navbar";
 import Image from "next/image";
 import { AuthProvider } from "@/providers/AuthProvider";
+import FloatingButton from "../_components/FloatingButton";
+import { FaPlus } from "react-icons/fa6";
 
 const font = Paytone_One({ weight: "400", subsets: ["latin"] });
 
@@ -26,6 +28,9 @@ export default function RootLayout({
           <main className="bg-neutral-100 pt-36 md:pt-20 min-h-screen">
             {children}
           </main>
+          <FloatingButton href="/addRestaurant">
+            <FaPlus className="w-auto h-8" />
+          </FloatingButton>
           {/* <Image
             src={"/images/Logo.webp"}
             alt="Logo background"
