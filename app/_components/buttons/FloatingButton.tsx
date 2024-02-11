@@ -14,7 +14,7 @@ const FloatingButton = ({
     <Link
       href={href}
       className={twMerge(
-        "h-16 w-16 rounded-full flex items-center justify-center bg-dark-blue text-white p-2 fixed bottom-2 right-2 shadow-lg",
+        "h-16 w-16 rounded-full flex items-center justify-center bg-dark-blue text-white p-2 fixed bottom-4 right-4 shadow-xl",
         styles
       )}
     >

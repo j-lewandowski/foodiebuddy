@@ -1,9 +1,7 @@
 import Button from "@/components/Button";
-import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import MobileNavbar from "./MobileNavbar";
-import { useEffect, useMemo } from "react";
 import { getServerSession } from "next-auth";
 
 type NavItem = {

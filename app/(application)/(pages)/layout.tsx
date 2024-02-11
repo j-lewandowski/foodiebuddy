@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import { Paytone_One } from "next/font/google";
-import "../globals.css";
+import "../../globals.css";
 
 import Navbar from "@/app/_components/Navbar";
-import Image from "next/image";
 import { AuthProvider } from "@/providers/AuthProvider";
-import FloatingButton from "../_components/FloatingButton";
+import FloatingButton from "../../_components/buttons/FloatingButton";
 import { FaPlus } from "react-icons/fa6";
 
 const font = Paytone_One({ weight: "400", subsets: ["latin"] });

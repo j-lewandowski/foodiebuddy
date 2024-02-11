@@ -4,6 +4,7 @@ import { twMerge } from "tailwind-merge";
 interface ButtonProps {
   children: React.ReactNode;
   variant?: "blue" | "gray" | "dark" | "ghost";
+  disabled?: boolean;
   href?: string;
   onClick?: () => void;
   styles?: string;
@@ -15,6 +16,7 @@ const Button = ({
   variant = "blue",
   styles,
   href,
+  disabled,
 }: ButtonProps) => {
   const ButtonSchema = (
     <button
@@ -28,10 +30,12 @@ const Button = ({
           : variant === "ghost"
           ? "bg-transparent border-2 border-dark-blue hover:bg-baby-blue"
           : "bg-dark-blue text-white hover:bg-baby-blue hover:text-dark-blue",
-        styles
+        styles,
+        disabled && "bg-dark-ash"
       )}
+      disabled={disabled}
     >
-      {children}
+      {disabled ? "loading" : children}
     </button>
   );
 
