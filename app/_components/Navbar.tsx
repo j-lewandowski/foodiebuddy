@@ -47,7 +47,7 @@ const Navbar = async () => {
           className="w-fit h-fit md:flex items-center justif-center hidden"
         >
           <Image
-            src="/images/Logo.png"
+            src="/static/Logo.png"
             className="mr-3 rounded-lg"
             alt="Logo"
             width={64}

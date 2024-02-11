@@ -13,19 +13,16 @@ const MobileNavbar = () => {
   const { isOpen, onClose, onOpen } = useMobileNavbar();
   const { status } = useSession();
 
-  const toggleOpen = () => {
-    if (isOpen) {
-      onClose();
-    } else {
-      onOpen();
-    }
-  };
-
   return (
     <nav className="block w-full h-28 md:hidden text-white fixed top-3 z-50">
       <div className="flex items-center justify-between px-4 bg-dark-blue rounded-lg mx-4 h-full shadow-2xl relative">
         <Link href="/" className="flex items-center justify-center">
-          <Image src="/Logo-white.webp" height={100} width={100} alt="Logo" />
+          <Image
+            src="/static/Logo-white.webp"
+            height={100}
+            width={100}
+            alt="Logo"
+          />
           <span className="text-xl">FOODIEBUDDY</span>
         </Link>
 
