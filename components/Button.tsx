@@ -10,6 +10,9 @@ interface ButtonProps {
   styles?: string;
 }
 
+// @TODO
+// Add loading screen and loading animation for the button
+
 const Button = ({
   children,
   onClick,

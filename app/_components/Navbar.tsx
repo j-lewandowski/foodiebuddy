@@ -49,6 +49,7 @@ const Navbar = async () => {
           <Image
             src="/static/Logo.png"
             className="mr-3 rounded-lg"
+            priority
             alt="Logo"
             width={64}
             height={64}

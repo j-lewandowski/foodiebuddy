@@ -9,11 +9,13 @@ import { useRestaurantForm } from "@/hooks/useRestaurantForm";
 
 import { useToast } from "@/hooks/useToast";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const AddRestaurantPage = () => {
   const { name, image, rating, setValue } = useRestaurantForm();
   const { setToast } = useToast();
   const [isPending, setIsPending] = useState<boolean>(false);
+  const router = useRouter();
 
   const onSubmit = async () => {
     setIsPending(true);
@@ -35,7 +37,7 @@ const AddRestaurantPage = () => {
     formData.append("rating", rating.toString());
     formData.append("image", blob);
 
-    const res = await fetch("/api/addRestaurant", {
+    const res = await fetch("/api/restaurants", {
       method: "POST",
       body: formData,
     });
@@ -43,6 +45,7 @@ const AddRestaurantPage = () => {
 
     if (data.status === 201) {
       setToast("Dodano knajpę!", true);
+      router.push("/");
     } else {
       setToast("Wystąpił błąd!", false);
     }

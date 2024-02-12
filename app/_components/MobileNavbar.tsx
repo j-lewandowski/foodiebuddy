@@ -22,6 +22,7 @@ const MobileNavbar = () => {
             height={100}
             width={100}
             alt="Logo"
+            priority
           />
           <span className="text-xl">FOODIEBUDDY</span>
         </Link>

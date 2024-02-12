@@ -1,6 +1,8 @@
 import TierContainer from "./_components/TierContainer";
 
 const Tiers = ["S", "A", "B", "C", "D", "E", "F"];
+// @TODO
+// Handle Tiers other way globaly
 
 const Home = () => {
   return (

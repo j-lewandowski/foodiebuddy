@@ -22,6 +22,9 @@ const config: Config = {
         "mobileDrawer-open": "slideDown 0.1s linear forwards",
         "mobileDrawer-closed": "slideUp 0.1s linear forwards",
       },
+      aspectRatio: {
+        "4/5": "4 / 5",
+      },
     },
   },
   plugins: [],
