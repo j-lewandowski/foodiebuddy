@@ -18,9 +18,9 @@ const config: Config = {
         "dark-blue": "#3A4856",
       },
       animation: {
-        loading: "loading 1.5s linear infinite",
         "mobileDrawer-open": "slideDown 0.1s linear forwards",
         "mobileDrawer-closed": "slideUp 0.1s linear forwards",
+        spin: "spin .75s linear infinite",
       },
       aspectRatio: {
         "4/5": "4 / 5",

@@ -20,9 +20,12 @@ model User {
 }
 
 model Restaurant {
-  id          String      @id @default(auto()) @map("_id") @db.ObjectId
-  createdAt   DateTime    @default(now())
-  name        String      
-  rating      Int
-  image       String
+  id                 String      @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt          DateTime    @default(now())
+  name               String      
+  rating             Int
+  image              String
+  city               String?
+  coords             Float[]
+  googleMapsLink     String?
 }

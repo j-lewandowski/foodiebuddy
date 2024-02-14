@@ -10,9 +10,12 @@ import { useRestaurantForm } from "@/hooks/useRestaurantForm";
 import { useToast } from "@/hooks/useToast";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useMemo } from "react";
+import dynamic from "next/dynamic";
 
 const AddRestaurantPage = () => {
-  const { name, image, rating, setValue } = useRestaurantForm();
+  const { name, image, rating, coords, googleMapsLink, city, setValue } =
+    useRestaurantForm();
   const { setToast } = useToast();
   const [isPending, setIsPending] = useState<boolean>(false);
   const router = useRouter();
@@ -32,10 +35,18 @@ const AddRestaurantPage = () => {
     }
 
     const formData = new FormData();
+
     const blob = await fetch(image).then((r) => r.blob());
-    formData.append("name", name);
-    formData.append("rating", rating.toString());
+    const dataToSend = {
+      name,
+      rating,
+      city,
+      coords,
+      googleMapsLink,
+    };
+
     formData.append("image", blob);
+    formData.append("data", JSON.stringify(dataToSend));
 
     const res = await fetch("/api/restaurants", {
       method: "POST",
@@ -52,8 +63,16 @@ const AddRestaurantPage = () => {
     setIsPending(false);
   };
 
+  const Map = useMemo(
+    () =>
+      dynamic(() => import("../_components/Map"), {
+        ssr: false,
+      }),
+    []
+  );
+
   return (
-    <div className="w-full h-full px-4 md:px-8 flex flex-col items-center justify-center relative space-y-5">
+    <div className="w-full min-h-full py-36 px-4 md:px-8 flex flex-col items-center justify-center relative space-y-5">
       <span className="text-3xl border-b-2 border-b-black w-full text-center py-4">
         Dodaj knajpę
       </span>
@@ -62,12 +81,13 @@ const AddRestaurantPage = () => {
       <Input
         placeholder="Nazwa knajpy"
         id="name"
-        value={name}
         onChange={(e) => setValue({ name: "name", value: e.target.value })}
         disabled={isPending}
       />
 
       <RatingSelector disabled={isPending} />
+
+      <Map />
 
       <Button
         styles="w-80 h-16 text-3xl absolute shadow-lg bottom-8"

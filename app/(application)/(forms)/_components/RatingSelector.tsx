@@ -1,17 +1,8 @@
 "use client";
+import { RATINGS } from "@/constants";
 import { useRating } from "@/hooks/useRating";
 import { useRestaurantForm } from "@/hooks/useRestaurantForm";
 import { twMerge } from "tailwind-merge";
-
-const ratings = [
-  { tier: "S", value: 0 },
-  { tier: "A", value: 1 },
-  { tier: "B", value: 2 },
-  { tier: "C", value: 3 },
-  { tier: "D", value: 4 },
-  { tier: "E", value: 5 },
-  { tier: "F", value: 6 },
-];
 
 const RatingSelector = ({ disabled }: { disabled: boolean }) => {
   const { rating, setValue } = useRestaurantForm();
@@ -20,7 +11,7 @@ const RatingSelector = ({ disabled }: { disabled: boolean }) => {
     <>
       <span className="text-3xl mb-4">Wybierz tier</span>
       <div className="w-full flex items-center justify-between">
-        {ratings.map((r, i) => (
+        {RATINGS.map((r, i) => (
           <div
             key={r.tier}
             className={twMerge(

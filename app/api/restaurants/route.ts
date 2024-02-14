@@ -3,16 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
 import { db } from "@/utlis/db";
-
-const ratings = [
-  { tier: "S", value: 0 },
-  { tier: "A", value: 1 },
-  { tier: "B", value: 2 },
-  { tier: "C", value: 3 },
-  { tier: "D", value: 4 },
-  { tier: "E", value: 5 },
-  { tier: "F", value: 6 },
-];
+import { RATINGS } from "@/constants";
 
 const uploadFile = async (file: File) => {
   const fileBuffer = await file.arrayBuffer();
@@ -47,10 +38,10 @@ const FormData = z.object({
 
 export async function POST(req: NextRequest) {
   const data = await req.formData();
+  const jsonData = JSON.parse(data.get("data") as string);
 
   const restaurantData = {
-    name: data.get("name") as string,
-    rating: parseInt(data.get("rating") as string),
+    ...jsonData,
   };
 
   if (!FormData.safeParse(restaurantData).success) {
@@ -61,12 +52,18 @@ export async function POST(req: NextRequest) {
     const filePath = (await uploadFile(data.get("image") as File)) as FilePath;
     const imageUrl = filePath.url;
 
+    console.log({
+      ...restaurantData,
+      image: imageUrl,
+    });
+
     await db.restaurant.create({
       data: {
         ...restaurantData,
         image: imageUrl,
       },
     });
+
     return NextResponse.json({ status: 201 });
   } catch (error) {
     console.log(error);
@@ -79,13 +76,14 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
   const tier = req.nextUrl.searchParams.get("tier");
-  const value = ratings.filter((rating) => rating.tier === tier)[0].value;
+  const value = RATINGS.filter((rating) => rating.tier === tier)[0].value;
   if (!tier) {
     return NextResponse.json([]);
   }
+
   const restaurants = await db.restaurant.findMany({
     where: {
-      rating: ratings[value].value,
+      rating: RATINGS[value].value,
     },
   });
 

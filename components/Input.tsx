@@ -5,14 +5,12 @@ interface InputPropTypes {
   id: string;
   disabled?: boolean;
   styles?: string;
-  value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input = ({
   placeholder,
   styles,
-  value,
   onChange,
   id,
   disabled,
