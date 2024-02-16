@@ -1,9 +1,10 @@
 import Button from "@/components/Button";
 import { RATINGS } from "@/constants";
 import { Restaurant } from "@prisma/client";
+import dynamic from "next/dynamic";
+import { useMemo } from "react";
 import { MdLocationPin } from "react-icons/md";
-import { BsGoogle } from "react-icons/bs";
-import Map from "@/app/(application)/(forms)/_components/Map";
+import Map from "@/app/_components/Map";
 
 const RestaurantPage = async ({ params }: { params: { id: string } }) => {
   const res = await fetch(
@@ -15,7 +16,7 @@ const RestaurantPage = async ({ params }: { params: { id: string } }) => {
   const restaurant = (await res.json()) as Restaurant;
 
   return (
-    <div className="w-full flex flex-col items-center justify-center px-4">
+    <div className="w-full flex flex-col items-center justify-center px-4 gap-y-4">
       <span className="text-3xl mb-4">{restaurant.name}</span>
       <div
         className="bg-cover bg-center rounded-lg w-full aspect-video border-4 border-dark-blue relative"
@@ -25,18 +26,13 @@ const RestaurantPage = async ({ params }: { params: { id: string } }) => {
           {RATINGS[restaurant.rating].tier}
         </div>
       </div>
+      <Map center={restaurant.coords} />
       <div className="w-full flex items-center justify-between mt-4">
         <div className="w-full flex items-center justify-start">
           <MdLocationPin className="w-12 h-auto aspect-square" />
           <span className="text-xl">{restaurant.city}</span>
         </div>
-        <Button styles="flex w-auto justify-center items-center gap-x-4">
-          <BsGoogle />
-          <span>Google maps</span>
-        </Button>
       </div>
-
-      <Map center={restaurant.coords} />
     </div>
   );
 };

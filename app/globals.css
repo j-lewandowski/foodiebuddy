@@ -24,6 +24,17 @@ body,
   }
 }
 
+@keyframes slideUpFood {
+  from {
+    transform: translateY(100%);
+    opacity: 0%;
+  }
+  to {
+    transform: translateY(0%);
+    opacity: 100%;
+  }
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);

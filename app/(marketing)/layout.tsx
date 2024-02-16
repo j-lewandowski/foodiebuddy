@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Paytone_One } from "next/font/google";
 import "../globals.css";
 import Navbar from "../_components/Navbar";
-import Image from "next/image";
 import { AuthProvider } from "@/providers/AuthProvider";
 
 const font = Paytone_One({ weight: "400", subsets: ["latin"] });

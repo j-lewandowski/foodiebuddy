@@ -40,7 +40,6 @@ const Map = ({ center }: MapProps) => {
 
   return (
     <>
-      <span className="text-3xl">Wybierz lokalizację</span>
       <MapContainer
         center={(center as L.LatLngExpression) || [52, 19]}
         zoom={center ? 10 : 5}
@@ -53,34 +52,6 @@ const Map = ({ center }: MapProps) => {
         <MapClickHanlder />
         {marker && <Marker position={marker as LatLngExpression} />}
       </MapContainer>
-      <div className="flex gap-x-4">
-        <div>
-          <span>Miasto</span>
-          <Input
-            placeholder="Miasto"
-            id="city"
-            onChange={(e) =>
-              setValue({
-                name: "city",
-                value: e.target.value,
-              })
-            }
-          />
-        </div>
-        <div>
-          <span>Link w Google Maps</span>
-          <Input
-            placeholder="Link w Google Maps"
-            id="googleMapsLink"
-            onChange={(e) =>
-              setValue({
-                name: "googleMapsLink",
-                value: e.target.value,
-              })
-            }
-          />
-        </div>
-      </div>
     </>
   );
 };

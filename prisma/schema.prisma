@@ -27,5 +27,6 @@ model Restaurant {
   image              String
   city               String?
   coords             Float[]
+  recommendedFood    String[]
   googleMapsLink     String?
 }

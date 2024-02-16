@@ -52,11 +52,6 @@ export async function POST(req: NextRequest) {
     const filePath = (await uploadFile(data.get("image") as File)) as FilePath;
     const imageUrl = filePath.url;
 
-    console.log({
-      ...restaurantData,
-      image: imageUrl,
-    });
-
     await db.restaurant.create({
       data: {
         ...restaurantData,

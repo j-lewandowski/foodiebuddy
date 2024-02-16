@@ -1,21 +1,29 @@
 "use client";
 
 import Button from "@/components/Button";
+import Input from "@/components/Input";
 
 import ImagePicker from "../_components/ImagePicker";
 import RatingSelector from "../_components/RatingSelector";
-import Input from "@/components/Input";
-import { useRestaurantForm } from "@/hooks/useRestaurantForm";
+import LocationPicker from "../_components/LocationPicker";
+import RecommendedItems from "../_components/RecommendedItems";
 
+import { useRestaurantForm } from "@/hooks/useRestaurantForm";
 import { useToast } from "@/hooks/useToast";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useMemo } from "react";
-import dynamic from "next/dynamic";
 
 const AddRestaurantPage = () => {
-  const { name, image, rating, coords, googleMapsLink, city, setValue } =
-    useRestaurantForm();
+  const {
+    name,
+    image,
+    rating,
+    coords,
+    googleMapsLink,
+    city,
+    recommendedFood,
+    setValue,
+  } = useRestaurantForm();
   const { setToast } = useToast();
   const [isPending, setIsPending] = useState<boolean>(false);
   const router = useRouter();
@@ -43,6 +51,7 @@ const AddRestaurantPage = () => {
       city,
       coords,
       googleMapsLink,
+      recommendedFood,
     };
 
     formData.append("image", blob);
@@ -63,14 +72,6 @@ const AddRestaurantPage = () => {
     setIsPending(false);
   };
 
-  const Map = useMemo(
-    () =>
-      dynamic(() => import("../_components/Map"), {
-        ssr: false,
-      }),
-    []
-  );
-
   return (
     <div className="w-full min-h-full py-36 px-4 md:px-8 flex flex-col items-center justify-center relative space-y-5">
       <span className="text-3xl border-b-2 border-b-black w-full text-center py-4">
@@ -87,7 +88,9 @@ const AddRestaurantPage = () => {
 
       <RatingSelector disabled={isPending} />
 
-      <Map />
+      <RecommendedItems />
+
+      <LocationPicker />
 
       <Button
         styles="w-80 h-16 text-3xl absolute shadow-lg bottom-8"
