@@ -1,8 +1,7 @@
-import Button from "@/components/Button";
 import { RATINGS } from "@/constants";
 import { Restaurant } from "@prisma/client";
-import dynamic from "next/dynamic";
-import { useMemo } from "react";
+
+import { twMerge } from "tailwind-merge";
 import { MdLocationPin } from "react-icons/md";
 import Map from "@/app/_components/Map";
 
@@ -16,7 +15,7 @@ const RestaurantPage = async ({ params }: { params: { id: string } }) => {
   const restaurant = (await res.json()) as Restaurant;
 
   return (
-    <div className="w-full flex flex-col items-center justify-center px-4 gap-y-4">
+    <div className="w-full flex flex-col items-center justify-center px-4 gap-y-4 pb-8">
       <span className="text-3xl mb-4">{restaurant.name}</span>
       <div
         className="bg-cover bg-center rounded-lg w-full aspect-video border-4 border-dark-blue relative"
@@ -26,6 +25,28 @@ const RestaurantPage = async ({ params }: { params: { id: string } }) => {
           {RATINGS[restaurant.rating].tier}
         </div>
       </div>
+
+      {restaurant.recommendedFood.length > 0 && (
+        <div className="flex flex-col w-full items-center justify-center">
+          <span className="text-3xl bg-baby-blue/45 w-full p-2 border-2 border-baby-blue rounded-t-lg text-center">
+            Polecane pozycje
+          </span>
+          <div className="w-full flex flex-col gapy-0">
+            {restaurant.recommendedFood.map((f, i) => (
+              <div
+                className={twMerge(
+                  "bg-baby-blue/45 w-full p-2 text-2xl border-2 border-t-0 border-baby-blue animate-slideUpFood flex items-center justify-between px-4",
+                  i === restaurant.recommendedFood.length - 1 && "rounded-b-lg"
+                )}
+                key={i}
+              >
+                <span>{f}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       <Map center={restaurant.coords} />
       <div className="w-full flex items-center justify-between mt-4">
         <div className="w-full flex items-center justify-start">

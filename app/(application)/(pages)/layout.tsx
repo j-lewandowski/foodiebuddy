@@ -24,7 +24,7 @@ export default function RootLayout({
       <body className={`${font.className} relative`}>
         <AuthProvider>
           <Navbar />
-          <main className="bg-neutral-100 pt-36 md:pt-20 min-h-screen">
+          <main className="bg-neutral-100 pt-36 md:pt-20 min-h-screen pb-8">
             {children}
           </main>
           <FloatingButton href="/addRestaurant">
