@@ -3,7 +3,9 @@ import { Restaurant } from "@prisma/client";
 
 import { twMerge } from "tailwind-merge";
 import { MdLocationPin } from "react-icons/md";
+
 import Map from "@/app/_components/Map";
+import DeleteButton from "../_components/DeleteButton";
 
 const RestaurantPage = async ({ params }: { params: { id: string } }) => {
   const res = await fetch(
@@ -15,8 +17,15 @@ const RestaurantPage = async ({ params }: { params: { id: string } }) => {
   const restaurant = (await res.json()) as Restaurant;
 
   return (
-    <div className="w-full flex flex-col items-center justify-center px-4 gap-y-4 pb-8">
-      <span className="text-3xl mb-4">{restaurant.name}</span>
+    <div className="w-full flex flex-col items-center justify-center px-4 gap-y-4 pb-8 relative">
+      <div className="flex items-center justify-between w-full text-center mb-4">
+        <div className="block h-8 w-8"></div>
+        <span className="text-3xl text-centerk justify-center">
+          {restaurant.name}
+        </span>
+        <DeleteButton id={restaurant.id} />
+      </div>
+
       <div
         className="bg-cover bg-center rounded-lg w-full aspect-video border-4 border-dark-blue relative"
         style={{ backgroundImage: `url('${restaurant.image}')` }}
@@ -54,6 +63,8 @@ const RestaurantPage = async ({ params }: { params: { id: string } }) => {
           <span className="text-xl">{restaurant.city}</span>
         </div>
       </div>
+
+      <button></button>
     </div>
   );
 };

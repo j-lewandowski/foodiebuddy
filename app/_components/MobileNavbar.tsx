@@ -33,7 +33,7 @@ const MobileNavbar = () => {
           <div className="flex items-center w-full justify-around space-x-3 px-3">
             {status === "authenticated" ? (
               <>
-                <MobileNavbarItem>Tierlisty</MobileNavbarItem>
+                <MobileNavbarItem href="/tiers">Tierlisty</MobileNavbarItem>
                 <MobileNavbarItem>Profil</MobileNavbarItem>
                 <MobileNavbarItem onClick={() => signOut({ callbackUrl: "/" })}>
                   Wyloguj

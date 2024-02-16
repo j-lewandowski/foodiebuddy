@@ -12,7 +12,7 @@ const Drawer = ({ children }: { children: React.ReactNode }) => {
           "relative",
           isOpen
             ? "animate-mobileDrawer-open shadow-2xl"
-            : "animate-mobileDrawer-closed"
+            : "animate-mobileDrawer-closed hidden"
         )}
       >
         <div className="w-full bg-baby-blue rounded-b-lg h-16 flex items-center justify-center left-0">
