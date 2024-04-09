@@ -1,6 +1,7 @@
 import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
+import db from "./utils/prisma";
 
 const secret = process.env.NEXTAUTH_SECRET;
 const publicRoutes = ["/", "/signin", "/signup"];
@@ -13,7 +14,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/signin", request.url));
   }
 
-  if (token && publicRoutes.includes(request.nextUrl.pathname)) {
+  if (isAuthenticated && publicRoutes.includes(request.nextUrl.pathname)) {
     return NextResponse.redirect(new URL("/home", request.url));
   }
 
