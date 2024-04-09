@@ -27,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${font.className} ${fontLogo.variable}`}>
+      <body className={`${font.className} ${fontLogo.variable} relative`}>
         <Providers>
           <Navbar />
           {children}

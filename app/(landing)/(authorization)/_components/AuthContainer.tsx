@@ -14,7 +14,7 @@ const AuthContainer = ({
   variant = "sign-in",
 }: AuthContainerProps) => {
   return (
-    <div className="w-[60%] h-[70%] border-2 border-primary rounded-lg flex py-4 items-center px-6">
+    <div className="md:w-[60%] md:h-[70%] md:border-2 border-primary rounded-lg flex flex-col md:flex-row py-4 items-center px-6">
       <div className="flex-1 h-full">
         <div className="flex flex-col items-center justify-center h-full px-8">
           <Image
@@ -43,10 +43,10 @@ const AuthContainer = ({
           </p>
         </div>
       </div>
-      <div className="h-[90%] w-[1px] bg-black/20"></div>
+      <div className="w-[90%] h-[1px] md:h-[90%] md:w-[1px] bg-black/20 my-6 md:my-0"></div>
       <div className="flex-1 h-full">
         <div className="h-full w-full flex flex-col items-center justify-center">
-          <span className="font-bold text-2xl">
+          <span className="font-bold text-3xl md:text-2xl">
             {variant === "sign-in" ? "Zaloguj się z:" : "Zarejestruj się z:"}
           </span>
           <ul className="flex flex-col w-full items-center py-6 space-y-4">

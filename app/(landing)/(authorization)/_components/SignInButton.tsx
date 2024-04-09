@@ -6,7 +6,7 @@ const SignInButton = ({ provider, id }: { provider: string; id: string }) => {
     <button
       onClick={() => signIn(id)}
       key={provider}
-      className="bg-secondary py-2 px-4 w-[50%] text-center font-bold rounded-full"
+      className="bg-secondary py-2 px-4 w-48 h-12 md:h-auto md:w-[50%] text-center font-bold rounded-full text-xl"
     >
       {provider}
     </button>
