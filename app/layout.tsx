@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Paytone_One, Poppins } from "next/font/google";
-import "../globals.css";
-import Navbar from "../_components/Navbar";
+import "./globals.css";
+import Navbar from "./_components/Navbar";
+import { SessionProvider } from "next-auth/react";
+import Providers from "@/providers/Providers";
 
 const font = Poppins({
   subsets: ["latin"],
@@ -26,8 +28,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${font.className} ${fontLogo.variable}`}>
-        <Navbar />
-        {children}
+        <Providers>
+          <Navbar />
+          {children}
+        </Providers>
       </body>
     </html>
   );

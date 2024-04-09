@@ -5,14 +5,14 @@ type ButtonVariants = "ghost" | "dark" | "light";
 
 interface ButtonProps {
   children: ReactNode | string;
-  variant?: "ghost" | "dark" | "light";
+  variant?: ButtonVariants;
   className?: string;
 }
 
 const variantStyles: Record<ButtonVariants, string> = {
   ghost: "hover:bg-gray-200/90",
   dark: "bg-primary text-white hover:bg-primary/80",
-  light: "border-2 border-primary hover:bg-primary hover:text-white",
+  light: "border-2 border-primary text-black hover:bg-primary hover:text-white",
 };
 
 const Button = ({ children, variant = "ghost", className }: ButtonProps) => {
