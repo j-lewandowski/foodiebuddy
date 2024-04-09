@@ -2,8 +2,16 @@ import AuthContainer from "../_components/AuthContainer";
 import SignInButton from "../_components/SignInButton";
 
 const SignUpPage = async () => {
-  const res = await fetch("http://localhost:3000/api/auth/providers");
-  const providers = await res.json();
+  let providers = [];
+  try {
+    const res = await fetch(
+      process.env.NEXT_PUBLIC_BASE_URL + "api/auth/providers",
+      { cache: "no-store" }
+    );
+    providers = await res.json();
+  } catch (error) {
+    console.error(error);
+  }
 
   return (
     <AuthContainer variant="sign-up">

@@ -33,10 +33,7 @@ const AuthContainer = ({
             Twoje wybrane knajpy przepadną oraz byś mógł cieszyć się
             korzystaniem z list, które współdzielisz ze swoimi bliskimi. Aby
             dowiedzieć się więcej o polityce prywatności kliknij{" "}
-            <Link
-              href="/polityka-prywatnosci"
-              className="font-bold text-primary hover:underline"
-            >
+            <Link href="#" className="font-bold text-primary hover:underline">
               tutaj
             </Link>
             .
