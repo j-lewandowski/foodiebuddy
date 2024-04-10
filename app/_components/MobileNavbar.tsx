@@ -2,13 +2,20 @@
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 import Link from "next/link";
+import { signOut, useSession } from "next-auth/react";
 
 const MobileNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { status } = useSession();
 
   const toggleOpen = () => {
     setIsOpen((prev) => !prev);
   };
+
+  // @TODO - spinner
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div
@@ -63,9 +70,19 @@ const MobileNavbar = () => {
           )}
           onClick={toggleOpen}
         >
-          <Link href="/signin">Zaloguj się</Link>
-          <Link href="/signup">Zarejestruj się</Link>
-          <Link href="/faq">FAQ</Link>
+          {status === "authenticated" ? (
+            <>
+              <Link href="/signin">Mapka</Link>
+              <Link href="/signup">Profil</Link>
+              <div onClick={() => signOut()}>Wyloguj</div>
+            </>
+          ) : (
+            <>
+              <Link href="/signin">Zaloguj się</Link>
+              <Link href="/signup">Zarejestruj się</Link>
+              <Link href="/faq">FAQ</Link>
+            </>
+          )}
         </ul>
       </div>
     </div>
