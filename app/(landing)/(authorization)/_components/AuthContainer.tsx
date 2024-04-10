@@ -18,7 +18,7 @@ const AuthContainer = ({
       <div className="flex-1 h-full">
         <div className="flex flex-col items-center justify-center h-full px-8">
           <Image
-            src="/images/Logo.webp"
+            src="/Logo.webp"
             alt="Logo"
             height={96}
             width={96}
