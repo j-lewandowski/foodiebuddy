@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { useForm } from "./useForm";
 
 interface CreateListingModalStore {
   isOpen: boolean;
@@ -10,6 +11,8 @@ export const useCreateListingModal = create<CreateListingModalStore>()(
   (set) => ({
     isOpen: false,
     open: () => set({ isOpen: true }),
-    close: () => set({ isOpen: false }),
+    close: () => {
+      set({ isOpen: false });
+    },
   })
 );

@@ -3,7 +3,7 @@ import { twMerge } from "tailwind-merge";
 
 type ButtonVariants = "ghost" | "dark" | "light";
 
-interface ButtonProps {
+interface ButtonProps extends React.InputHTMLAttributes<HTMLButtonElement> {
   children: ReactNode | string;
   variant?: ButtonVariants;
   className?: string;
@@ -21,9 +21,11 @@ const Button = ({
   variant = "ghost",
   className,
   onClick,
+  disabled,
 }: ButtonProps) => {
   return (
     <button
+      disabled={disabled || false}
       onClick={onClick}
       className={twMerge(
         "px-3 py-2 rounded-lg duration-150",

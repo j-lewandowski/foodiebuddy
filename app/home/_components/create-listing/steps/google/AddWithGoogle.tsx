@@ -3,20 +3,22 @@ import Input from "@/app/_components/Input";
 import { useState, ChangeEvent } from "react";
 import { FaCircleXmark } from "react-icons/fa6";
 import { FaCheckCircle } from "react-icons/fa";
+import Button from "@/app/_components/Button";
+import { useCreateListingModalWrapper } from "@/zustand/stores/create-listing-modal/useCreateListinModalWrapper";
 
 const AddWithGoogle = () => {
   const [googleLink, setGoogleLink] = useState<string>("");
-  const [linkIsValid, setLinkIsValid] = useState<boolean | null>(null);
+  const { canContinue, setCanContinue } = useCreateListingModalWrapper();
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setGoogleLink(value);
 
     if (e.target.value.trim() === "") {
-      setLinkIsValid(null);
+      setCanContinue(!null);
       return;
     }
-    setLinkIsValid(
+    setCanContinue(
       e.target.value.includes("www.google.com/maps") ||
         e.target.value.includes("maps.app.goo.gl")
     );
@@ -40,10 +42,10 @@ const AddWithGoogle = () => {
         <div
           className={twMerge(
             "absolute right-3 hidden bg-background pl-2",
-            linkIsValid !== null && "block"
+            canContinue !== null && "block"
           )}
         >
-          {linkIsValid && linkIsValid !== null ? (
+          {canContinue && canContinue !== null ? (
             <FaCheckCircle className=" h-5 w-5 text-green-500" />
           ) : (
             <FaCircleXmark className=" h-5 w-5 text-rose-500" />
