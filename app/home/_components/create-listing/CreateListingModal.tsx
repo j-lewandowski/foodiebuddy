@@ -1,0 +1,24 @@
+"use client";
+
+import { useCreateListingModal } from "@/zustand/stores/create-listing-modal/useCreateListingModal";
+import CreateListingSheet from "./CreateListingSheet";
+
+const CreateListingModal = () => {
+  const { close } = useCreateListingModal();
+
+  return (
+    <div className="absolute top-0 left-0 w-full h-full z-10">
+      <div className="relative h-full w-full">
+        <div className="w-full h-full flex items-center justify-center">
+          <CreateListingSheet />
+        </div>
+        <div
+          className="w-full h-full absolute top-0 bg-black/50 z-10"
+          onClick={close}
+        ></div>
+      </div>
+    </div>
+  );
+};
+
+export default CreateListingModal;

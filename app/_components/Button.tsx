@@ -7,6 +7,7 @@ interface ButtonProps {
   children: ReactNode | string;
   variant?: ButtonVariants;
   className?: string;
+  onClick?: () => void;
 }
 
 const variantStyles: Record<ButtonVariants, string> = {
@@ -15,9 +16,15 @@ const variantStyles: Record<ButtonVariants, string> = {
   light: "border-2 border-primary text-black hover:bg-primary hover:text-white",
 };
 
-const Button = ({ children, variant = "ghost", className }: ButtonProps) => {
+const Button = ({
+  children,
+  variant = "ghost",
+  className,
+  onClick,
+}: ButtonProps) => {
   return (
     <button
+      onClick={onClick}
       className={twMerge(
         "px-3 py-2 rounded-lg duration-150",
         variantStyles[variant],

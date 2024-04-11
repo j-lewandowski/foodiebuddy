@@ -9,7 +9,7 @@ const Navbar = async () => {
 
   return (
     <>
-      <div className="w-full h-16 bg-background px-12 shadow-md justify-between items-center top-0 left-0 fixed hidden md:flex z-10">
+      <div className="w-full h-16 bg-background px-12 shadow-md justify-between items-center top-0 left-0 fixed hidden md:flex z-50">
         <Link href={"/"} className="flex items-center justify-center gap-x-3">
           <Image src="/images/Logo.webp" alt="Logo" width={56} height={56} />
           <span className="font-logo text-xl">FOODIEBUDDY</span>

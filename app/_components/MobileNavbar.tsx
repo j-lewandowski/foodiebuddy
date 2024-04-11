@@ -20,7 +20,7 @@ const MobileNavbar = () => {
   return (
     <div
       className={twMerge(
-        "w-full h-full px-3 top-2 left-0 fixed md:hidden block z-10",
+        "w-full h-full px-3 top-2 left-0 fixed md:hidden block z-50",
         isOpen && "px-0 top-0 left-0"
       )}
     >

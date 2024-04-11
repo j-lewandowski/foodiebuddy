@@ -6,7 +6,7 @@ interface DrawerStore {
   close: () => void;
 }
 
-export const useDrawerStore = create<DrawerStore>()((set) => ({
+export const useDrawer = create<DrawerStore>()((set) => ({
   isOpen: true,
   open: () => set({ isOpen: true }),
   close: () => set({ isOpen: false }),

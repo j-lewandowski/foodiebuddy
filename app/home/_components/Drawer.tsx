@@ -1,12 +1,11 @@
 "use client";
 import Button3D from "@/app/_components/Button3D";
-import { useDrawerStore } from "@/zustand/stores/drawer/Drawer";
+import { useDrawer } from "@/zustand/stores/drawer/useDrawerStore";
 import { FaXmark } from "react-icons/fa6";
 import { twMerge } from "tailwind-merge";
 
 const Drawer = () => {
-  const { close, open, isOpen } = useDrawerStore();
-  console.log(isOpen);
+  const { close, open, isOpen } = useDrawer();
 
   return (
     <div
@@ -30,19 +29,22 @@ const Drawer = () => {
             <Button3D>S</Button3D>
           </div>
           <div className="w-full h-full">
-            <Button3D>S</Button3D>
+            <Button3D>A</Button3D>
           </div>
           <div className="w-full h-full">
-            <Button3D>S</Button3D>
+            <Button3D>B</Button3D>
           </div>
           <div className="w-full h-full">
-            <Button3D>S</Button3D>
+            <Button3D>C</Button3D>
           </div>
           <div className="w-full h-full">
-            <Button3D>S</Button3D>
+            <Button3D>D</Button3D>
           </div>
           <div className="w-full h-full">
-            <Button3D>S</Button3D>
+            <Button3D>E</Button3D>
+          </div>
+          <div className="w-full h-full">
+            <Button3D>F</Button3D>
           </div>
         </div>
       </div>
