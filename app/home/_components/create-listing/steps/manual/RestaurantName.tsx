@@ -15,6 +15,7 @@ const RestaurantName = () => {
     setCanContinue(e.target.value.length > 0);
     setError("");
     setRestaurantData({
+      ...restaurantData,
       name: e.target.value,
     });
   };

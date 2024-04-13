@@ -21,7 +21,7 @@ const Decision = () => {
         <div className="w-full h-full flex flex-col items-center justify-center space-y-8 -mt-20">
           <Button
             variant="dark"
-            className="w-[200px] flex items-center justify-center text-xl font-semibold"
+            className="w-[200px] h-16 flex items-center justify-center text-2xl font-semibold"
             onClick={() => {
               setFlowType("google");
               next();
@@ -39,7 +39,7 @@ const Decision = () => {
               next();
             }}
             variant="light"
-            className="w-[200px] flex items-center justify-around text-xl font-semibold"
+            className="w-[200px] h-16 flex items-center justify-around text-2xl font-semibold"
           >
             Ręcznie
           </Button>

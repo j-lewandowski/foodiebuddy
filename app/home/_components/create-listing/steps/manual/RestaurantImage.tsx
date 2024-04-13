@@ -2,15 +2,22 @@ import { useForm } from "@/zustand/stores/create-listing-modal/useForm";
 import IconButton from "@/app/_components/IconButton";
 import { FaArrowRight } from "react-icons/fa6";
 import { useCreateListingModalWrapper } from "@/zustand/stores/create-listing-modal/useCreateListinModalWrapper";
-import { useRef } from "react";
+import { ChangeEvent, useRef } from "react";
+import { IoFastFood } from "react-icons/io5";
 
 const RestaurantImage = () => {
   const { restaurantData, setRestaurantData } = useForm();
-  const { canContinue } = useCreateListingModalWrapper();
+  const { canContinue, next } = useCreateListingModalWrapper();
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onClick = () => {
-    inputRef.current!.click();
+    inputRef.current?.click();
+  };
+
+  const onChange = () => {
+    const files = inputRef.current?.files;
+    if (!files) return;
+    setRestaurantData({ ...restaurantData, image: files[0] });
   };
 
   return (
@@ -22,14 +29,32 @@ const RestaurantImage = () => {
         opcjonalny. Jeśli nie masz pod ręką zdjęcia, możesz dodać je później.
       </p>
       <div
-        className="w-64 h-64 rounded-lg outline-1 outline-dashed"
+        className="w-64 h-64 rounded-lg outline-1 outline-dashed flex items-center justify-center"
         onClick={onClick}
-      ></div>
+      >
+        {restaurantData.image ? (
+          <div
+            className="w-full h-full bg-center bg-cover"
+            style={{
+              backgroundImage: `url('${URL.createObjectURL(
+                restaurantData.image
+              )}')`,
+            }}
+          ></div>
+        ) : (
+          <IoFastFood className="h-20 w-20 text-primary"></IoFastFood>
+        )}
+      </div>
 
-      <IconButton className="mt-6" visible={canContinue}>
+      <IconButton className="mt-6" visible={canContinue} onClick={next}>
         <FaArrowRight className="h-6 w-6" />
       </IconButton>
-      <input ref={inputRef} type="file" className="hidden" />
+      <input
+        ref={inputRef}
+        type="file"
+        className="hidden"
+        onChange={onChange}
+      />
     </div>
   );
 };

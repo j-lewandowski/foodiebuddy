@@ -20,5 +20,5 @@ export const useCreateListingModalWrapper =
     prev: () => set((state) => ({ page: state.page - 1 })),
     setFlowType: (type) => set({ flowType: type }),
     setCanContinue: (bool) => set({ canContinue: bool }),
-    resetPage: () => set({ page: 0 }),
+    resetPage: () => set({ page: 0, canContinue: false }),
   }));

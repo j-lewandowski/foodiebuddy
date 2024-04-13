@@ -3,6 +3,7 @@ import Decision from "./steps/Decision";
 import AddWithGoogle from "./steps/google/AddWithGoogle";
 import RestaurantName from "./steps/manual/RestaurantName";
 import RestaurantImage from "./steps/manual/RestaurantImage";
+import RestaurantRating from "./steps/manual/RestaurantRating";
 
 const CreateListingModalWrapper = () => {
   const addWithGoogleFlow = [<Decision key={1} />, <AddWithGoogle key={2} />];
@@ -10,6 +11,7 @@ const CreateListingModalWrapper = () => {
     <Decision key={1} />,
     <RestaurantName key={2} />,
     <RestaurantImage key={3} />,
+    <RestaurantRating key={4} />,
   ];
 
   const flows = {
