@@ -9,3 +9,25 @@ body,
   margin: 0;
   width: 100vw;
 }
+
+.range-slider {
+  appearance: none;
+  width: 100%;
+  height: 0.5rem;
+  background-color: transparent;
+  transition: all 200ms ease-in-out;
+}
+
+.range-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 2rem;
+  height: 2rem;
+  background-color: #3a4855;
+  border-radius: 100%;
+  animation-duration: 200ms;
+  transition: all 200ms ease-in-out;
+}
+
+.range-slider::-webkit-slider-thumb:hover {
+  transform: scale(115%);
+}
