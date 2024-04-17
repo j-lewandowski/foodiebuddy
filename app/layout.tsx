@@ -27,7 +27,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${font.className} ${fontLogo.variable} relative`}>
+      <body
+        className={`${font.className} ${fontLogo.variable} relative overflow-hidden`}
+      >
         <Providers>
           <Navbar />
           {children}
