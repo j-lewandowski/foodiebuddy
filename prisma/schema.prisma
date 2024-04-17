@@ -15,9 +15,28 @@ datasource db {
 }
 
 model User {
-  id            Int         @id @default(autoincrement())
-  email         String      @unique
+  id            Int           @id @default(autoincrement())
+  email         String        @unique
   name          String      
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @default(now())
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @default(now())
+
+  ranking       Ranking[]   
+}
+
+model Ranking {
+  id                  Int           @id
+  authorizedUserId    Int           @unique
+  user                User?          @relation(fields: [authorizedUserId], references: [id])
+  restaurant          Restaurant[]
+}
+
+model Restaurant {
+  id                  Int         @id @default(autoincrement())
+  rankingId           Int         @unique
+  ranking             Ranking?     @relation(fields: [rankingId], references: [id])
+  name                String      
+  image               String
+  rating              Float       
+  recommendedFood     String[]
 }

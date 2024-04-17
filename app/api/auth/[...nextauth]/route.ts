@@ -1,8 +1,8 @@
-import NextAuth, { NextAuthOptions, User } from "next-auth";
+import NextAuth, { NextAuthOptions, User, Session, Awaitable } from "next-auth";
 import db from "@/utils/prisma";
 import GoogleProvider from "next-auth/providers/google";
 
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   providers: [
     GoogleProvider({
@@ -32,16 +32,35 @@ const authOptions: NextAuthOptions = {
         return true;
       }
       try {
-        await db.user.create({
+        const newUser = await db.user.create({
           data: {
             email: user.email!,
             name: user.name!,
           },
         });
+
+        // After user sign up - create personal ranking
+        await db.ranking.create({
+          data: {
+            id: newUser.id,
+            authorizedUserId: newUser.id,
+          },
+        });
+
         return true;
       } catch (error) {
         return "/error";
       }
+    },
+    async session({ session, token }) {
+      const dbUser = await db.user.findFirst({
+        where: {
+          email: token.email!,
+        },
+      });
+      session.user.userId = dbUser?.id!;
+
+      return session;
     },
   },
   secret: process.env.NEXTAUTH_SECRET,
