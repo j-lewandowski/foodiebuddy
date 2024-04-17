@@ -4,6 +4,7 @@ export interface RestaurantData {
   name: string;
   image: File | null;
   rating: number;
+  recommendedFood: string[];
 }
 
 interface useFormStore {
@@ -12,7 +13,12 @@ interface useFormStore {
   reset: () => void;
 }
 
-const initialState = { name: "", image: null, rating: 5.0 };
+const initialState = {
+  name: "",
+  image: null,
+  rating: 5.0,
+  recommendedFood: [],
+};
 
 export const useForm = create<useFormStore>()((set) => ({
   restaurantData: initialState,
