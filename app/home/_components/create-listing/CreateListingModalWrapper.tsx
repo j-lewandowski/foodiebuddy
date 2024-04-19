@@ -23,7 +23,7 @@ const CreateListingModalWrapper = () => {
 
   const { page, flowType } = useCreateListingModalWrapper();
 
-  return <div className="w-full h-full">{flows[flowType][page]}</div>;
+  return <div className="w-full h-full relative">{flows[flowType][page]}</div>;
 };
 
 export default CreateListingModalWrapper;

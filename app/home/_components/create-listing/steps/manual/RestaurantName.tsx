@@ -1,15 +1,14 @@
 "use client";
-import IconButton from "@/app/_components/IconButton";
 import Input from "@/app/_components/Input";
 import { useCreateListingModalWrapper } from "@/zustand/stores/create-listing-modal/useCreateListinModalWrapper";
 import { useForm } from "@/zustand/stores/create-listing-modal/useForm";
 import { ChangeEvent, useState } from "react";
-import { FaArrowRight } from "react-icons/fa6";
+import NextPageButton from "../../../NextPageButton";
 
 const RestaurantName = () => {
   const { restaurantData, setRestaurantData } = useForm();
   const [error, setError] = useState<string>("");
-  const { canContinue, setCanContinue, next } = useCreateListingModalWrapper();
+  const { setCanContinue, next } = useCreateListingModalWrapper();
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCanContinue(e.target.value.length > 0);
@@ -41,9 +40,7 @@ const RestaurantName = () => {
           error={error}
         />
       </div>
-      <IconButton className="mt-4" visible={canContinue} onClick={onSubmit}>
-        <FaArrowRight className="h-6 w-6" />
-      </IconButton>
+      <NextPageButton />
     </div>
   );
 };

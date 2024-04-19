@@ -1,7 +1,7 @@
 import db from "@/utils/prisma";
 import { getServerSession, Session } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-import { authOptions } from "../auth/[...nextauth]/route";
+import { authOptions } from "@/utils/authOptions";
 
 export async function POST(request: NextRequest) {
   const restaurantData = await request.json();
@@ -27,5 +27,5 @@ export async function POST(request: NextRequest) {
     },
   });
 
-  return NextResponse.json({}), { status: 201 };
+  return NextResponse.json({});
 }

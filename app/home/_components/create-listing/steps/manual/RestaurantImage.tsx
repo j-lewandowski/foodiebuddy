@@ -2,8 +2,9 @@ import { useForm } from "@/zustand/stores/create-listing-modal/useForm";
 import IconButton from "@/app/_components/IconButton";
 import { FaArrowRight } from "react-icons/fa6";
 import { useCreateListingModalWrapper } from "@/zustand/stores/create-listing-modal/useCreateListinModalWrapper";
-import { ChangeEvent, useRef } from "react";
+import { useRef } from "react";
 import { IoFastFood } from "react-icons/io5";
+import NextPageButton from "../../../NextPageButton";
 
 const RestaurantImage = () => {
   const { restaurantData, setRestaurantData } = useForm();
@@ -46,9 +47,7 @@ const RestaurantImage = () => {
         )}
       </div>
 
-      <IconButton className="mt-6" visible={canContinue} onClick={next}>
-        <FaArrowRight className="h-6 w-6" />
-      </IconButton>
+      <NextPageButton />
       <input
         ref={inputRef}
         type="file"

@@ -5,6 +5,7 @@ import { FaCircleXmark } from "react-icons/fa6";
 import { FaCheckCircle } from "react-icons/fa";
 import Button from "@/app/_components/Button";
 import { useCreateListingModalWrapper } from "@/zustand/stores/create-listing-modal/useCreateListinModalWrapper";
+import NextPageButton from "../../../NextPageButton";
 
 const AddWithGoogle = () => {
   const [googleLink, setGoogleLink] = useState<string>("");
@@ -15,7 +16,7 @@ const AddWithGoogle = () => {
     setGoogleLink(value);
 
     if (e.target.value.trim() === "") {
-      setCanContinue(!null);
+      setCanContinue(false);
       return;
     }
     setCanContinue(
@@ -24,8 +25,29 @@ const AddWithGoogle = () => {
     );
   };
 
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    sendLink();
+  };
+
+  const sendLink = async () => {
+    const res = await fetch(
+      process.env.NEXT_PUBLIC_BASE_URL + "/api/google/get-place-from-link",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          googleLink,
+        }),
+      }
+    );
+    console.log(res);
+  };
+
   return (
-    <div className="w-full h-full flex flex-col items-center">
+    <form
+      onSubmit={onSubmit}
+      className="w-full h-full flex flex-col items-center"
+    >
       <span className="font-bold text-2xl">Wklej link do wizytówki Google</span>
       <p className="w-[80%] text-center mt-6 font-semibold text-neutral-500">
         Aby szybko i wygodnie dodać knajpę możesz skopiować link z Google Maps i
@@ -52,7 +74,8 @@ const AddWithGoogle = () => {
           )}
         </div>
       </div>
-    </div>
+      <NextPageButton onClick={sendLink} />
+    </form>
   );
 };
 
