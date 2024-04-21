@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 export interface RestaurantData {
   name: string;
-  image: File | null;
+  image: File | null | string;
   rating: number;
   recommendedFood: string[];
 }

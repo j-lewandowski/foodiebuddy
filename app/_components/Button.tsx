@@ -30,7 +30,8 @@ const Button = ({
       className={twMerge(
         "px-3 py-2 rounded-lg duration-150",
         variantStyles[variant],
-        className
+        className,
+        disabled && "hover:cursor-not-allowed hover:scale-100"
       )}
     >
       {children}

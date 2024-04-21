@@ -1,12 +1,10 @@
 "use client";
 import Button from "@/app/_components/Button";
-
 import { FaGoogle } from "react-icons/fa6";
-import { useCreateListingModalWrapper } from "@/zustand/stores/create-listing-modal/useCreateListinModalWrapper";
+import { useCreateListingModal } from "@/zustand/stores/create-listing-modal/useCreateListingModal";
 
 const Decision = () => {
-  const { setFlowType, next } = useCreateListingModalWrapper();
-
+  const { setFlowType, next } = useCreateListingModal();
   return (
     <>
       <div className="w-full h-full flex flex-col items-center">

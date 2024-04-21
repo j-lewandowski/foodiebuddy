@@ -1,18 +1,73 @@
 "use client";
 
 import { useCreateListingModal } from "@/zustand/stores/create-listing-modal/useCreateListingModal";
-import CreateListingModalWrapper from "./CreateListingModalWrapper";
-import { useCreateListingModalWrapper } from "@/zustand/stores/create-listing-modal/useCreateListinModalWrapper";
 import { FaArrowLeft, FaXmark } from "react-icons/fa6";
+import Decision from "./steps/Decision";
+import Button from "@/app/_components/Button";
+import RestaurantName from "./steps/manual/RestaurantName";
+import RestaurantImage from "./steps/manual/RestaurantImage";
+import RestaurantRating from "./steps/manual/RestaurantRating";
+import RestaurantRecommendedFood from "./steps/manual/RestaurantRecommendedFood";
+import RestaurantPreview from "./steps/RestaurantPreview";
+import { useForm } from "@/zustand/stores/create-listing-modal/useForm";
+import { useRouter } from "next/navigation";
+
+const flows = {
+  manual: [
+    <Decision key="decision" />,
+    <RestaurantName key="name" />,
+    <RestaurantImage key="restaurant image" />,
+    <RestaurantRating key="resturant rating" />,
+    <RestaurantRecommendedFood key="restaurant food" />,
+    <RestaurantPreview key="restaurant preview" />,
+  ],
+  google: [<Decision key={"decision"} />],
+};
 
 const CreateListingSheet = () => {
-  const { prev, page, canContinue, next } = useCreateListingModalWrapper();
-  const { close } = useCreateListingModal();
+  const { close, prev, page, canContinue, next, flowType } =
+    useCreateListingModal();
+  const { restaurantData } = useForm();
+  const router = useRouter();
+
+  const onSubmit = async () => {
+    const res = await fetch(
+      process.env.NEXT_PUBLIC_BASE_URL + "/api/restaurants",
+      {
+        method: "POST",
+        body: JSON.stringify(restaurantData),
+      }
+    );
+
+    if (res.status === 201) {
+      close();
+    } else {
+      router.replace("/error");
+    }
+  };
 
   return (
-    <div className="w-[800px] h-[600px] bg-white z-30 rounded-lg shadow-xl px-12 py-6 relative">
-      <CreateListingModalWrapper />
+    <div className="w-[900px] max-w-[90%] h-[650px] max-h-[95%] bg-white z-30 rounded-lg shadow-xl px-12 py-6 relative flex flex-col">
+      {/* Content */}
+      <div className="w-full h-full">{flows[flowType][page]}</div>
 
+      {page !== 0 && (
+        <Button
+          className="w-full text-xl font-bold hover:scale-105"
+          variant="dark"
+          disabled={!canContinue}
+          type="submit"
+          onClick={
+            page === flows[flowType].length - 1
+              ? () => console.log("submit")
+              : next
+          }
+        >
+          {page === flows[flowType].length - 1
+            ? "Zakończ tworzenie i dodaj"
+            : "Dalej"}
+        </Button>
+      )}
       <button className="p-2 w-fit h-fit duration-200 rounded-full hover:bg-gray-200/80 absolute top-6 left-6">
         <div className="w-fit h-fit flex items-ceneter justify-center">
           {page === 0 ? (

@@ -1,14 +1,9 @@
 import { useForm } from "@/zustand/stores/create-listing-modal/useForm";
-import IconButton from "@/app/_components/IconButton";
-import { FaArrowRight } from "react-icons/fa6";
-import { useCreateListingModalWrapper } from "@/zustand/stores/create-listing-modal/useCreateListinModalWrapper";
 import { useRef } from "react";
 import { IoFastFood } from "react-icons/io5";
-import NextPageButton from "../../../NextPageButton";
 
 const RestaurantImage = () => {
   const { restaurantData, setRestaurantData } = useForm();
-  const { canContinue, next } = useCreateListingModalWrapper();
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onClick = () => {
@@ -18,7 +13,10 @@ const RestaurantImage = () => {
   const onChange = () => {
     const files = inputRef.current?.files;
     if (!files) return;
-    setRestaurantData({ ...restaurantData, image: files[0] });
+    setRestaurantData({
+      ...restaurantData,
+      image: URL.createObjectURL(files[0]),
+    });
   };
 
   return (
@@ -37,9 +35,7 @@ const RestaurantImage = () => {
           <div
             className="w-full h-full bg-center bg-cover"
             style={{
-              backgroundImage: `url('${URL.createObjectURL(
-                restaurantData.image
-              )}')`,
+              backgroundImage: `url('${restaurantData.image}')`,
             }}
           ></div>
         ) : (
@@ -47,7 +43,6 @@ const RestaurantImage = () => {
         )}
       </div>
 
-      <NextPageButton />
       <input
         ref={inputRef}
         type="file"

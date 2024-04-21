@@ -2,11 +2,9 @@
 
 import { useCreateListingModal } from "@/zustand/stores/create-listing-modal/useCreateListingModal";
 import CreateListingSheet from "./CreateListingSheet";
-import { useCreateListingModalWrapper } from "@/zustand/stores/create-listing-modal/useCreateListinModalWrapper";
 
 const CreateListingModal = () => {
-  const { close } = useCreateListingModal();
-  const { resetPage } = useCreateListingModalWrapper();
+  const { close, resetPage } = useCreateListingModal();
 
   return (
     <div className="absolute top-0 left-0 w-full h-full z-10">
