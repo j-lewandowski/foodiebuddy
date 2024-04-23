@@ -15,7 +15,8 @@ const RestaurantImage = () => {
     if (!files) return;
     setRestaurantData({
       ...restaurantData,
-      image: URL.createObjectURL(files[0]),
+      imageLink: URL.createObjectURL(files[0]),
+      imageFile: files[0],
     });
   };
 
@@ -31,11 +32,11 @@ const RestaurantImage = () => {
         className="w-64 h-64 rounded-lg outline-1 outline-dashed flex items-center justify-center"
         onClick={onClick}
       >
-        {restaurantData.image ? (
+        {restaurantData.imageLink ? (
           <div
             className="w-full h-full bg-center bg-cover"
             style={{
-              backgroundImage: `url('${restaurantData.image}')`,
+              backgroundImage: `url('${restaurantData.imageLink}')`,
             }}
           ></div>
         ) : (

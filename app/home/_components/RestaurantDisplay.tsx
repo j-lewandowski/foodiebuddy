@@ -30,7 +30,12 @@ const RestaurantDisplay = ({ editable = false }: RestaurantDisplayProps) => {
             "w-full h-full bg-cover bg-center rounded-xl",
             editable && editableStyle
           )}
-          style={{ backgroundImage: `url('${restaurantData.image}')` }}
+          style={{
+            backgroundImage: `url('${
+              restaurantData.imageLink ||
+              "https://rbyfmlbegrvfgrmnpogc.supabase.co/storage/v1/object/public/static-content/DefaultImage.png"
+            }')`,
+          }}
           id="2"
           onClick={editable ? editElement : () => {}}
         ></div>

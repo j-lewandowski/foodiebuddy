@@ -31,18 +31,57 @@ const CreateListingSheet = () => {
   const router = useRouter();
 
   const onSubmit = async () => {
-    const res = await fetch(
-      process.env.NEXT_PUBLIC_BASE_URL + "/api/restaurants",
-      {
-        method: "POST",
-        body: JSON.stringify(restaurantData),
-      }
-    );
+    const imageKey = await uploadImage();
+    // @TODO - error handling
+    if (!imageKey) return;
 
-    if (res.status === 201) {
-      close();
-    } else {
-      router.replace("/error");
+    try {
+      const res = await fetch(
+        process.env.NEXT_PUBLIC_BASE_URL + "/api/restaurants",
+        {
+          method: "POST",
+          body: JSON.stringify({ ...restaurantData, image: imageKey }),
+        }
+      );
+
+      if (res.status === 201) {
+        close();
+      } else {
+        router.replace("/error");
+      }
+    } catch (error) {
+      // Call a image cleanup function
+      console.log(error);
+    }
+  };
+
+  const generateSignedUploadUrl = async () => {
+    const res = await fetch(
+      process.env.NEXT_PUBLIC_BASE_URL + "/api/supabase/generate-signed-url"
+    );
+    const data = await res.json();
+    return { signedUrl: data.signedUrl, token: data.token };
+  };
+
+  const uploadImage = async () => {
+    if (!restaurantData.imageFile) return;
+    // Before we upload the image we need to get the signedUrl where we can send the image and save it in database
+    const { signedUrl, token } = await generateSignedUploadUrl();
+    // @TODO - error handling
+    if (!signedUrl) return;
+    try {
+      const res = await fetch(signedUrl, {
+        method: "PUT",
+        body: restaurantData.imageFile,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      return await res.json();
+    } catch (error) {
+      console.log(error);
+      return {};
     }
   };
 
@@ -58,9 +97,7 @@ const CreateListingSheet = () => {
           disabled={!canContinue}
           type="submit"
           onClick={
-            page === flows[flowType].length - 1
-              ? () => console.log("submit")
-              : next
+            page === flows[flowType].length - 1 ? () => onSubmit() : next
           }
         >
           {page === flows[flowType].length - 1
