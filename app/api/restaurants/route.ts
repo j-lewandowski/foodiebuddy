@@ -17,19 +17,19 @@ export async function POST(request: NextRequest) {
   const { userId } = session.user;
 
   const res = supabase.storage
-    .from("foodiebuddy")
+    .from("foodiebuddy-images")
     .getPublicUrl(restaurantData.image);
 
-  const imageUrl = res.data.publicUrl;
+  const { publicUrl } = res.data;
 
-  // @TODO - default image in storage
+  // @TODO better default image handling
   await db.restaurant.create({
     data: {
       rankingId: userId,
       name: restaurantData.name as string,
-      image:
-        imageUrl ||
-        "https://rbyfmlbegrvfgrmnpogc.supabase.co/storage/v1/object/public/static-content/DefaultImage.png",
+      image: restaurantData.image
+        ? publicUrl
+        : "https://rbyfmlbegrvfgrmnpogc.supabase.co/storage/v1/object/public/static-content/DefaultImage.png",
       rating: restaurantData.rating as number,
       recommendedFood: restaurantData.recommendedFood as string[],
     },

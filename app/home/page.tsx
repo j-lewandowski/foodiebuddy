@@ -5,6 +5,9 @@ import { FaPlus } from "react-icons/fa6";
 import CreateListingModal from "./_components/create-listing/CreateListingModal";
 import { useCreateListingModal } from "@/zustand/stores/create-listing-modal/useCreateListingModal";
 import { useDrawer } from "@/zustand/stores/drawer/useDrawerStore";
+import { useEffect } from "react";
+import { useUser } from "@/zustand/stores/application/useUser";
+import { useSession } from "next-auth/react";
 
 const HomePage = () => {
   const { isLoaded } = useLoadScript({
@@ -12,6 +15,16 @@ const HomePage = () => {
   });
   const modal = useCreateListingModal();
   const drawer = useDrawer();
+  const { data, status } = useSession();
+
+  const { setUserId, setRankingId } = useUser();
+
+  useEffect(() => {
+    if (data) {
+      setUserId(data.user.userId);
+      setRankingId(data.user.userId);
+    }
+  }, [data]);
 
   if (!isLoaded) return <div>Loading....</div>;
 

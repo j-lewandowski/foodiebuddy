@@ -11,6 +11,7 @@ import RestaurantRecommendedFood from "./steps/manual/RestaurantRecommendedFood"
 import RestaurantPreview from "./steps/RestaurantPreview";
 import { useForm } from "@/zustand/stores/create-listing-modal/useForm";
 import { useRouter } from "next/navigation";
+import { useUser } from "@/zustand/stores/application/useUser";
 
 const flows = {
   manual: [
@@ -29,11 +30,11 @@ const CreateListingSheet = () => {
     useCreateListingModal();
   const { restaurantData } = useForm();
   const router = useRouter();
+  const { rankingId } = useUser();
 
   const onSubmit = async () => {
     const imageKey = await uploadImage();
     // @TODO - error handling
-    if (!imageKey) return;
 
     try {
       const res = await fetch(
@@ -57,20 +58,21 @@ const CreateListingSheet = () => {
 
   const generateSignedUploadUrl = async () => {
     const res = await fetch(
-      process.env.NEXT_PUBLIC_BASE_URL + "/api/supabase/generate-signed-url"
+      process.env.NEXT_PUBLIC_BASE_URL +
+        `/api/supabase/generate-signed-url?rankingId=${rankingId}`
     );
     const data = await res.json();
-    return { signedUrl: data.signedUrl, token: data.token };
+    return data;
   };
 
   const uploadImage = async () => {
-    if (!restaurantData.imageFile) return;
+    if (!restaurantData.imageFile) return "";
     // Before we upload the image we need to get the signedUrl where we can send the image and save it in database
-    const { signedUrl, token } = await generateSignedUploadUrl();
+    const { signedUrl, token, path } = await generateSignedUploadUrl();
     // @TODO - error handling
     if (!signedUrl) return;
     try {
-      const res = await fetch(signedUrl, {
+      await fetch(signedUrl, {
         method: "PUT",
         body: restaurantData.imageFile,
         headers: {
@@ -78,7 +80,7 @@ const CreateListingSheet = () => {
         },
       });
 
-      return await res.json();
+      return path;
     } catch (error) {
       console.log(error);
       return {};
