@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import isSimilarEnough from "./utlis/findSimilarity";
 
 const unshortenUrl = async (shortUrl: string) => {
   try {
@@ -9,11 +10,11 @@ const unshortenUrl = async (shortUrl: string) => {
     if (response.ok) {
       return response.url;
     } else {
-      console.error("Odpowiedź z błędem:", response.status);
+      console.error("Response with error:", response.status);
       return null;
     }
   } catch (error) {
-    console.error("Wystąpił błąd:", error);
+    console.error("Error:", error);
     return null;
   }
 };
@@ -43,13 +44,24 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({});
   }
 
+  // @TODO - link split refactor
+
+  const deletedPrefixBeforePlace = link.slice(link.indexOf("place/") + 6);
+  const objectName = deletedPrefixBeforePlace.slice(
+    0,
+    deletedPrefixBeforePlace.indexOf("/")
+  );
+
   const deletedPrefix = link.slice(link.indexOf("@") + 1);
   const positionOfFirstSlash = link.slice(link.indexOf("@") + 1).indexOf("/");
   const locationString = deletedPrefix.slice(0, positionOfFirstSlash);
   const [lat, lng, zoom] = locationString.split(",");
 
   const placesResponse = await getPlaces(+lat, +lng);
-  const restaurant = placesResponse.results[0];
+
+  const restaurant = placesResponse.results.filter((place: any) =>
+    isSimilarEnough(decodeURIComponent(objectName), place.name, 0.9)
+  )[0];
 
   if (!restaurant) {
     return NextResponse.json({});

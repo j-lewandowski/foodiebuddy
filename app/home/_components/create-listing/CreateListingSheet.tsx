@@ -12,6 +12,7 @@ import RestaurantPreview from "./steps/RestaurantPreview";
 import { useForm } from "@/zustand/stores/create-listing-modal/useForm";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/zustand/stores/application/useUser";
+import AddWithGoogle from "./steps/google/AddWithGoogle";
 
 const flows = {
   manual: [
@@ -22,13 +23,26 @@ const flows = {
     <RestaurantRecommendedFood key="restaurant food" />,
     <RestaurantPreview key="restaurant preview" />,
   ],
-  google: [<Decision key={"decision"} />],
+  google: [
+    <Decision key={"decision"} />,
+    <AddWithGoogle key={"google link"} />,
+    <RestaurantPreview key="restaurant preview" />,
+  ],
 };
 
 const CreateListingSheet = () => {
-  const { close, prev, page, canContinue, next, flowType } =
-    useCreateListingModal();
-  const { restaurantData } = useForm();
+  const {
+    close,
+    prev,
+    page,
+    canContinue,
+    next,
+    flowType,
+    setCanContinue,
+    googleLink,
+    setGoogleLink,
+  } = useCreateListingModal();
+  const { restaurantData, setRestaurantData } = useForm();
   const router = useRouter();
   const { rankingId } = useUser();
 
@@ -54,6 +68,32 @@ const CreateListingSheet = () => {
       // Call a image cleanup function
       console.log(error);
     }
+  };
+
+  const onGoogleNext = async () => {
+    const data = await sendLink();
+    setRestaurantData({
+      ...restaurantData,
+      name: data.name,
+    });
+    setGoogleLink("");
+    next();
+    setCanContinue(false);
+  };
+
+  const sendLink = async () => {
+    const res = await fetch(
+      process.env.NEXT_PUBLIC_BASE_URL + "/api/google/get-place-from-link",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          googleLink,
+        }),
+      }
+    );
+
+    const data = await res.json();
+    return data;
   };
 
   const generateSignedUploadUrl = async () => {
@@ -96,10 +136,14 @@ const CreateListingSheet = () => {
         <Button
           className="w-full text-xl font-bold hover:scale-105"
           variant="dark"
-          disabled={!canContinue}
+          disabled={page !== flows[flowType].length - 1 ? !canContinue : false}
           type="submit"
           onClick={
-            page === flows[flowType].length - 1 ? () => onSubmit() : next
+            page === flows[flowType].length - 1
+              ? () => onSubmit()
+              : flowType === "manual"
+              ? next
+              : onGoogleNext
           }
         >
           {page === flows[flowType].length - 1

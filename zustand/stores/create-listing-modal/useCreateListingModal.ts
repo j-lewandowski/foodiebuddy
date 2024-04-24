@@ -15,6 +15,9 @@ interface CreateListingModalStore {
   setFlowType: (type: "google" | "manual") => void;
   setPage: (idx: number) => void;
   resetPage: () => void;
+
+  googleLink: string;
+  setGoogleLink: (link: string) => void;
 }
 
 export const useCreateListingModal = create<CreateListingModalStore>()(
@@ -38,6 +41,8 @@ export const useCreateListingModal = create<CreateListingModalStore>()(
     setPage: (idx) => set({ page: idx }),
     setFlowType: (type) => set({ flowType: type }),
     setCanContinue: (bool) => set({ canContinue: bool }),
-    resetPage: () => set({ page: 0, canContinue: false }),
+    resetPage: () => set({ page: 0, canContinue: false, googleLink: "" }),
+    googleLink: "",
+    setGoogleLink: (link) => set({ googleLink: link }),
   })
 );
