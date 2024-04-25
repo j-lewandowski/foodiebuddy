@@ -86,7 +86,7 @@ const CustomSlider = ({
 const RatingInput = () => {
   const { restaurantData, setRestaurantData } = useForm();
   const [isIntegerInputOpen, setIsIntegerInputOpen] = useState(true);
-  const [intRatingValue, setIntRatingValue] = useState(5);
+  const [intRatingValue, setIntRatingValue] = useState(restaurantData.rating);
   const [decimalRatingValue, setDecimalRatingValue] = useState(0);
 
   const onChangeInteger = (value: number) => {

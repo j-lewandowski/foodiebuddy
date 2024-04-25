@@ -26,6 +26,9 @@ const flows = {
   google: [
     <Decision key={"decision"} />,
     <AddWithGoogle key={"google link"} />,
+    <RestaurantImage key="restaurant image" />,
+    <RestaurantRating key="resturant rating" />,
+    <RestaurantRecommendedFood key="restaurant food" />,
     <RestaurantPreview key="restaurant preview" />,
   ],
 };
@@ -76,9 +79,8 @@ const CreateListingSheet = () => {
       ...restaurantData,
       name: data.name,
     });
-    setGoogleLink("");
     next();
-    setCanContinue(false);
+    setCanContinue(true);
   };
 
   const sendLink = async () => {

@@ -26,7 +26,8 @@ const RestaurantImage = () => {
       <span className="text-md font-semibold mb-4">(opcjonalnie)</span>
       <p className="w-[70%] text-center text-md font-normal text-neutral-500 mb-4">
         Możesz kliknąć na pole poniżej aby dodać własne zdjęcie. Ten krok jest
-        opcjonalny. Jeśli nie masz pod ręką zdjęcia, możesz dodać je później.
+        opcjonalny. Jeśli nie masz pod ręką zdjęcia, możesz dodać je później, a
+        na tą chwilę zostanie ono zastąpione jednym z domyślnych zdjęć.
       </p>
       <div
         className="w-64 h-64 rounded-lg outline-1 outline-dashed flex items-center justify-center"

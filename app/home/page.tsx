@@ -1,5 +1,4 @@
 "use client";
-import { GoogleMap, useLoadScript } from "@react-google-maps/api";
 import Drawer from "./_components/Drawer";
 import { FaPlus } from "react-icons/fa6";
 import CreateListingModal from "./_components/create-listing/CreateListingModal";
@@ -8,11 +7,9 @@ import { useDrawer } from "@/zustand/stores/drawer/useDrawerStore";
 import { useEffect } from "react";
 import { useUser } from "@/zustand/stores/application/useUser";
 import { useSession } from "next-auth/react";
+import { APIProvider, Map } from "@vis.gl/react-google-maps";
 
 const HomePage = () => {
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
-  });
   const modal = useCreateListingModal();
   const drawer = useDrawer();
   const { data, status } = useSession();
@@ -26,13 +23,19 @@ const HomePage = () => {
     }
   }, [data]);
 
-  if (!isLoaded) return <div>Loading....</div>;
-
   return (
     <div className="w-full h-screen pt-16">
       <div className="w-full h-full relative">
-        <GoogleMap
+        <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}>
+          <Map
+            center={{ lat: 52, lng: 20 }}
+            zoom={6}
+            mapId={process.env.NEXT_PUBLIC_GOOGLE_MAP_ID}
+          ></Map>
+        </APIProvider>
+        {/* <GoogleMap
           zoom={6}
+          mapId
           center={{ lat: 52, lng: 20 }}
           mapContainerClassName="map"
           mapContainerStyle={{
@@ -43,7 +46,7 @@ const HomePage = () => {
           options={{
             disableDefaultUI: true,
           }}
-        ></GoogleMap>
+        ></GoogleMap> */}
         <Drawer />
         {modal.isOpen && <CreateListingModal />}
         <div

@@ -37,7 +37,12 @@ export const useCreateListingModal = create<CreateListingModalStore>()(
     flowType: "google",
     canContinue: false,
     next: () => set((state) => ({ page: state.page + 1 })),
-    prev: () => set((state) => ({ page: state.page - 1 })),
+    prev: () => {
+      if (useCreateListingModal.getState().page - 1 === 0) {
+        useForm.getState().reset();
+      }
+      set((state) => ({ page: state.page - 1 }));
+    },
     setPage: (idx) => set({ page: idx }),
     setFlowType: (type) => set({ flowType: type }),
     setCanContinue: (bool) => set({ canContinue: bool }),

@@ -7,7 +7,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import { useCreateListingModal } from "@/zustand/stores/create-listing-modal/useCreateListingModal";
 
 const AddWithGoogle = () => {
-  const { canContinue, setCanContinue, googleLink, setGoogleLink } =
+  const { canContinue, setCanContinue, googleLink, setGoogleLink, next } =
     useCreateListingModal();
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +28,7 @@ const AddWithGoogle = () => {
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     sendLink();
-    setCanContinue(false);
+    next();
   };
 
   const sendLink = async () => {
@@ -43,7 +43,6 @@ const AddWithGoogle = () => {
     );
 
     const data = await res.json();
-    console.log(data);
     return data;
   };
 

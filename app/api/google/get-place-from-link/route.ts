@@ -45,6 +45,7 @@ export async function POST(req: NextRequest) {
   }
 
   // @TODO - link split refactor
+  // @TODO - find a better way to return only one desired restaurant
 
   const deletedPrefixBeforePlace = link.slice(link.indexOf("place/") + 6);
   const objectName = deletedPrefixBeforePlace.slice(

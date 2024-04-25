@@ -6,7 +6,9 @@ import { FaCheck, FaTrash } from "react-icons/fa6";
 const RecommendedFood = () => {
   const { restaurantData, setRestaurantData } = useForm();
   const [foodInput, setFoodInput] = useState<string>("");
-  const [foodList, setFoodList] = useState<string[]>([]);
+  const [foodList, setFoodList] = useState<string[]>(
+    restaurantData.recommendedFood
+  );
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
