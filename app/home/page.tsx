@@ -4,10 +4,11 @@ import { FaPlus } from "react-icons/fa6";
 import CreateListingModal from "./_components/create-listing/CreateListingModal";
 import { useCreateListingModal } from "@/zustand/stores/create-listing-modal/useCreateListingModal";
 import { useDrawer } from "@/zustand/stores/drawer/useDrawerStore";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useUser } from "@/zustand/stores/application/useUser";
 import { useSession } from "next-auth/react";
-import { APIProvider, Map } from "@vis.gl/react-google-maps";
+import { APIProvider } from "@vis.gl/react-google-maps";
+import CustomMap from "./_components/CustomMap";
 
 const HomePage = () => {
   const modal = useCreateListingModal();
@@ -27,26 +28,9 @@ const HomePage = () => {
     <div className="w-full h-screen pt-16">
       <div className="w-full h-full relative">
         <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}>
-          <Map
-            center={{ lat: 52, lng: 20 }}
-            zoom={6}
-            mapId={process.env.NEXT_PUBLIC_GOOGLE_MAP_ID}
-          ></Map>
+          <CustomMap></CustomMap>
         </APIProvider>
-        {/* <GoogleMap
-          zoom={6}
-          mapId
-          center={{ lat: 52, lng: 20 }}
-          mapContainerClassName="map"
-          mapContainerStyle={{
-            width: "100%",
-            height: "100%",
-            margin: "auto",
-          }}
-          options={{
-            disableDefaultUI: true,
-          }}
-        ></GoogleMap> */}
+
         <Drawer />
         {modal.isOpen && <CreateListingModal />}
         <div
