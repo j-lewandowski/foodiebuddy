@@ -27,24 +27,24 @@ const AddWithGoogle = () => {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    sendLink();
+    // sendLink();
     next();
   };
 
-  const sendLink = async () => {
-    const res = await fetch(
-      process.env.NEXT_PUBLIC_BASE_URL + "/api/google/get-place-from-link",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          googleLink,
-        }),
-      }
-    );
+  // const sendLink = async () => {
+  //   const res = await fetch(
+  //     process.env.NEXT_PUBLIC_BASE_URL + "/api/google/get-place-from-link",
+  //     {
+  //       method: "POST",
+  //       body: JSON.stringify({
+  //         googleLink,
+  //       }),
+  //     }
+  //   );
 
-    const data = await res.json();
-    return data;
-  };
+  //   const data = await res.json();
+  //   return data;
+  // };
 
   return (
     <form

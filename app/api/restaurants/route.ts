@@ -32,6 +32,8 @@ export async function POST(request: NextRequest) {
         : "https://rbyfmlbegrvfgrmnpogc.supabase.co/storage/v1/object/public/static-content/DefaultImage.png",
       rating: restaurantData.rating as number,
       recommendedFood: restaurantData.recommendedFood as string[],
+      lat: restaurantData.lat as number,
+      lng: restaurantData.lng as number,
     },
   });
 

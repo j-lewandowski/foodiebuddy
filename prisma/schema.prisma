@@ -37,6 +37,8 @@ model Restaurant {
   ranking             Ranking?    @relation(fields: [rankingId], references: [id])
   name                String      
   image               String
-  rating              Float       
+  rating              Float
+  lat                 Float       @default(0.00)
+  lng                 Float       @default(0.00)
   recommendedFood     String[]
 }

@@ -7,6 +7,8 @@ export interface RestaurantData {
   imageFile?: null | File;
   rating: number;
   recommendedFood: string[];
+  lat: number | null;
+  lng: number | null;
 }
 
 interface useFormStore {
@@ -20,6 +22,8 @@ const initialState = {
   image: null,
   rating: 5.0,
   recommendedFood: [],
+  lat: null,
+  lng: null,
 };
 
 export const useForm = create<useFormStore>()((set) => ({

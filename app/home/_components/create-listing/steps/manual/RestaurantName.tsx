@@ -1,7 +1,7 @@
 "use client";
 import Input from "@/app/_components/Input";
 import { useForm } from "@/zustand/stores/create-listing-modal/useForm";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useCreateListingModal } from "@/zustand/stores/create-listing-modal/useCreateListingModal";
 
 const RestaurantName = () => {
@@ -26,6 +26,10 @@ const RestaurantName = () => {
     }
     next();
   };
+
+  useEffect(() => {
+    setCanContinue(restaurantData.name.length > 0);
+  }, []);
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">

@@ -13,6 +13,8 @@ import { useForm } from "@/zustand/stores/create-listing-modal/useForm";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/zustand/stores/application/useUser";
 import AddWithGoogle from "./steps/google/AddWithGoogle";
+import RestaurantLocation from "./steps/manual/RestaurantLocation";
+import RestaurantFound from "./steps/google/RestaurantFound";
 
 const flows = {
   manual: [
@@ -21,15 +23,17 @@ const flows = {
     <RestaurantImage key="restaurant image" />,
     <RestaurantRating key="resturant rating" />,
     <RestaurantRecommendedFood key="restaurant food" />,
+    <RestaurantLocation key="restuant location" />,
     <RestaurantPreview key="restaurant preview" />,
   ],
   google: [
     <Decision key={"decision"} />,
     <AddWithGoogle key={"google link"} />,
-    <RestaurantImage key="restaurant image" />,
-    <RestaurantRating key="resturant rating" />,
-    <RestaurantRecommendedFood key="restaurant food" />,
-    <RestaurantPreview key="restaurant preview" />,
+    <RestaurantFound key={"restaurant found"} />,
+    // <RestaurantImage key="restaurant image" />,
+    // <RestaurantRating key="resturant rating" />,
+    // <RestaurantRecommendedFood key="restaurant food" />,
+    // <RestaurantPreview key="restaurant preview" />,
   ],
 };
 
@@ -73,31 +77,6 @@ const CreateListingSheet = () => {
     }
   };
 
-  const onGoogleNext = async () => {
-    const data = await sendLink();
-    setRestaurantData({
-      ...restaurantData,
-      name: data.name,
-    });
-    next();
-    setCanContinue(true);
-  };
-
-  const sendLink = async () => {
-    const res = await fetch(
-      process.env.NEXT_PUBLIC_BASE_URL + "/api/google/get-place-from-link",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          googleLink,
-        }),
-      }
-    );
-
-    const data = await res.json();
-    return data;
-  };
-
   const generateSignedUploadUrl = async () => {
     const res = await fetch(
       process.env.NEXT_PUBLIC_BASE_URL +
@@ -131,10 +110,12 @@ const CreateListingSheet = () => {
 
   return (
     <div className="w-[900px] max-w-[90%] h-[650px] max-h-[95%] bg-white z-30 rounded-lg shadow-xl px-12 py-6 relative flex flex-col">
-      {/* Content */}
       <div className="w-full h-full">{flows[flowType][page]}</div>
 
-      {page !== 0 && (
+      {!(
+        page === 0 ||
+        (flowType === "google" && page === flows.google.length - 1)
+      ) && (
         <Button
           className="w-full text-xl font-bold hover:scale-105"
           variant="dark"
@@ -143,9 +124,7 @@ const CreateListingSheet = () => {
           onClick={
             page === flows[flowType].length - 1
               ? () => onSubmit()
-              : flowType === "manual"
-              ? next
-              : onGoogleNext
+              : () => next()
           }
         >
           {page === flows[flowType].length - 1

@@ -25,7 +25,7 @@ export const useCreateListingModal = create<CreateListingModalStore>()(
     isOpen: false,
     open: () => {
       set({ isOpen: true });
-      useForm.getState().reset();
+      // useForm.getState().reset();
       useCreateListingModal.getState().resetPage();
     },
     close: () => {

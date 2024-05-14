@@ -31,3 +31,21 @@ body,
 .range-slider::-webkit-slider-thumb:hover {
   transform: scale(115%);
 }
+
+.animated-text {
+  background-image: linear-gradient(to right, transparent, red);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  white-space: nowrap;
+  animation: colorAppear 5s linear infinite;
+}
+
+@keyframes colorAppear {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
