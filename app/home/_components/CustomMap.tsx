@@ -14,9 +14,9 @@ import Image from "next/image";
 import Button from "@/app/_components/Button";
 import { useForm } from "@/zustand/stores/create-listing-modal/useForm";
 import { useCreateListingModal } from "@/zustand/stores/create-listing-modal/useCreateListingModal";
+import { useUser } from "@/zustand/stores/application/useUser";
 
 interface CustomMapProps {
-  children?: ReactNode;
   variant?: "picker" | "default";
 }
 
@@ -26,16 +26,16 @@ interface Marker {
   id?: string;
 }
 
-const CustomMap = ({ children, variant = "default" }: CustomMapProps) => {
+const CustomMap = ({ variant = "default" }: CustomMapProps) => {
   const map = useMap();
   const [markerRef, marker] = useAdvancedMarkerRef();
 
   const [newMarker, setNewMarker] = useState<Marker | null>(null);
-  const [markers, setMarkers] = useState<Marker[]>([]);
 
   const { setRestaurantData, restaurantData } = useForm();
   const { setCanContinue, open, setPage, setFlowType } =
     useCreateListingModal();
+  const { restaurants } = useUser();
 
   useEffect(() => {
     setCanContinue(!!(restaurantData.lat && restaurantData.lng));
@@ -123,15 +123,19 @@ const CustomMap = ({ children, variant = "default" }: CustomMapProps) => {
       onClick={onMapClick}
       style={{ outline: "none" }}
     >
-      {/* {markers.map((marker, i) => (
+      {restaurants.map((restaurant, i) => (
         <AdvancedMarker
           key={i}
           position={{
-            lat: marker.lat,
-            lng: marker.lng,
+            lat: restaurant.lat,
+            lng: restaurant.lng,
           }}
-        />
-      ))} */}
+        >
+          <div className="w-16 h-16">
+            <Image src={Glyph} alt="glyph" fill={true} objectFit="contain" />
+          </div>
+        </AdvancedMarker>
+      ))}
       {newMarker && (
         <>
           <AdvancedMarker

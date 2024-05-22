@@ -3,14 +3,18 @@ import Button3D from "@/app/_components/Button3D";
 import { useDrawer } from "@/zustand/stores/drawer/useDrawerStore";
 import { FaXmark } from "react-icons/fa6";
 import { twMerge } from "tailwind-merge";
+import TierListing from "./TierListing";
+import { useUser } from "@/zustand/stores/application/useUser";
+import RestaurantList from "./RestaurantList";
 
 const Drawer = () => {
   const { close, open, isOpen } = useDrawer();
+  const { selectedTier } = useUser();
 
   return (
     <div
       className={twMerge(
-        "z-10 w-[320px]  h-[90%] bg-white absolute top-[50%] -translate-y-[50%] left-0 rounded-r-lg shadow-xl p-2 py-6 duration-200",
+        "z-10 w-[380px]  h-[70%] bg-white absolute top-[50%] -translate-y-[50%] left-0 rounded-r-lg shadow-xl p-2 py-6 duration-200",
         !isOpen && " -translate-x-[100%]"
       )}
     >
@@ -19,34 +23,8 @@ const Drawer = () => {
           className="absolute -top-3 right-1 h-6 w-6 hover:cursor-pointer text-primary"
           onClick={close}
         />
-        <span className="text-xl font-bold">Wybierz klasę</span>
-        <p className="w-full text-center mt-2 font-medium text-primary">
-          Wybierz klasę knajp, które mam wyświetlić
-        </p>
-        <div className="w-full h-full overflow-auto flex flex-col items-center mt-8 space-y-6 py-4">
-          {/* 3d buttons here */}
-          <div className="w-full h-full">
-            <Button3D>S</Button3D>
-          </div>
-          <div className="w-full h-full">
-            <Button3D>A</Button3D>
-          </div>
-          <div className="w-full h-full">
-            <Button3D>B</Button3D>
-          </div>
-          <div className="w-full h-full">
-            <Button3D>C</Button3D>
-          </div>
-          <div className="w-full h-full">
-            <Button3D>D</Button3D>
-          </div>
-          <div className="w-full h-full">
-            <Button3D>E</Button3D>
-          </div>
-          <div className="w-full h-full">
-            <Button3D>F</Button3D>
-          </div>
-        </div>
+
+        {selectedTier === "ALL" ? <TierListing /> : <RestaurantList />}
       </div>
 
       {!isOpen && (

@@ -4,6 +4,20 @@ import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "@/utils/authOptions";
 import { supabase } from "@/utils/supabase";
 
+export async function GET(request: NextRequest) {
+  try {
+    const restaurants = await db.restaurant.findMany({
+      where: {
+        rankingId: 4,
+      },
+    });
+
+    return NextResponse.json(restaurants);
+  } catch (error) {
+    return NextResponse.json({});
+  }
+}
+
 export async function POST(request: NextRequest) {
   const restaurantData = await request.json();
   const session = await getServerSession(authOptions);
