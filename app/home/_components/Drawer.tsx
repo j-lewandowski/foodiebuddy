@@ -1,7 +1,7 @@
 "use client";
 import Button3D from "@/app/_components/Button3D";
 import { useDrawer } from "@/zustand/stores/drawer/useDrawerStore";
-import { FaXmark } from "react-icons/fa6";
+import { FaArrowLeft, FaXmark } from "react-icons/fa6";
 import { twMerge } from "tailwind-merge";
 import TierListing from "./TierListing";
 import { useUser } from "@/zustand/stores/application/useUser";
@@ -9,12 +9,12 @@ import RestaurantList from "./RestaurantList";
 
 const Drawer = () => {
   const { close, open, isOpen } = useDrawer();
-  const { selectedTier } = useUser();
+  const { selectedTier, setSelectedTier } = useUser();
 
   return (
     <div
       className={twMerge(
-        "z-10 w-[380px]  h-[70%] bg-white absolute top-[50%] -translate-y-[50%] left-0 rounded-r-lg shadow-xl p-2 py-6 duration-200",
+        "z-10 w-[25%] max-w-[380px]  h-[70%] bg-white absolute top-[50%] -translate-y-[50%] left-[.5rem] rounded-lg shadow-xl p-2 py-6 duration-200 border-2 border-black/10",
         !isOpen && " -translate-x-[100%]"
       )}
     >
@@ -22,6 +22,11 @@ const Drawer = () => {
         <FaXmark
           className="absolute -top-3 right-1 h-6 w-6 hover:cursor-pointer text-primary"
           onClick={close}
+        />
+
+        <FaArrowLeft
+          className="absolute -top-3 left-1 h-6 w-6 hover:cursor-pointer text-primary"
+          onClick={() => setSelectedTier("ALL")}
         />
 
         {selectedTier === "ALL" ? <TierListing /> : <RestaurantList />}

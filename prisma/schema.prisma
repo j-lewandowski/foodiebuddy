@@ -40,5 +40,6 @@ model Restaurant {
   rating              Float
   lat                 Float       @default(0.00)
   lng                 Float       @default(0.00)
+  location            String      @default("")
   recommendedFood     String[]
 }

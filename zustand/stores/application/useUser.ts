@@ -13,7 +13,7 @@ interface UserProps {
     tier: "ALL" | "S" | "A" | "B" | "C" | "D" | "E" | "F"
   ) => void;
   selectedRestaurant: Restaurant | null;
-  setSelectedRestaurant: (restaurant: Restaurant) => void;
+  setSelectedRestaurant: (restaurant: Restaurant | null) => void;
 }
 
 export const useUser = create<UserProps>()((set) => ({

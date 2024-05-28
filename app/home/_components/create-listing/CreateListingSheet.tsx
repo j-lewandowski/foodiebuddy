@@ -30,10 +30,6 @@ const flows = {
     <Decision key={"decision"} />,
     <AddWithGoogle key={"google link"} />,
     <RestaurantFound key={"restaurant found"} />,
-    // <RestaurantImage key="restaurant image" />,
-    // <RestaurantRating key="resturant rating" />,
-    // <RestaurantRecommendedFood key="restaurant food" />,
-    // <RestaurantPreview key="restaurant preview" />,
   ],
 };
 

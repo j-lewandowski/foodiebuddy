@@ -1,3 +1,4 @@
+import { Restaurant } from "@prisma/client";
 import { create } from "zustand";
 
 export interface RestaurantData {

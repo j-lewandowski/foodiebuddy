@@ -2,36 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { useForm } from "@/zustand/stores/create-listing-modal/useForm";
-
-// @TO-DO - MOVE THIS FUNCTION TO A HOOK
-export const calculateTier = (rating: number) => {
-  let result = "B";
-  const r = rating;
-
-  if (r >= 1 && r <= 2.0) {
-    result = "F";
-  } else if (r >= 2.1 && r <= 3.4) {
-    result = "E";
-  } else if (r >= 3.5 && r <= 4.9) {
-    result = "D";
-  } else if (r >= 5.0 && r <= 6.4) {
-    result = "C";
-  } else if (r >= 6.5 && r <= 7.9) {
-    result = "B";
-  } else if (r >= 8.0 && r <= 8.9) {
-    result = "A";
-  } else {
-    result = "S";
-  }
-  return result;
-};
+import { getTierName } from "@/utils/getTierName";
 
 const TierDisplay = () => {
   const { restaurantData } = useForm();
   const [tierName, setTierName] = useState<string>("");
 
   useEffect(() => {
-    setTierName(calculateTier(restaurantData.rating));
+    setTierName(getTierName(restaurantData.rating));
   }, [restaurantData.rating]);
 
   return (

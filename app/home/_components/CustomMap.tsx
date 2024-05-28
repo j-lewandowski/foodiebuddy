@@ -35,7 +35,7 @@ const CustomMap = ({ variant = "default" }: CustomMapProps) => {
   const { setRestaurantData, restaurantData } = useForm();
   const { setCanContinue, open, setPage, setFlowType } =
     useCreateListingModal();
-  const { restaurants } = useUser();
+  const { restaurants, selectedRestaurant } = useUser();
 
   useEffect(() => {
     setCanContinue(!!(restaurantData.lat && restaurantData.lng));
@@ -93,11 +93,13 @@ const CustomMap = ({ variant = "default" }: CustomMapProps) => {
           }
         );
         const data = await res.json();
+
         setRestaurantData({
           ...restaurantData,
           lat: data.result.geometry.location.lat,
           lng: data.result.geometry.location.lng,
           name: data.result.name,
+          location: data.result.address_components[3].long_name,
         });
       } catch (error) {
         console.log(error);
@@ -121,21 +123,29 @@ const CustomMap = ({ variant = "default" }: CustomMapProps) => {
       mapId={process.env.NEXT_PUBLIC_GOOGLE_MAP_ID}
       disableDoubleClickZoom={true}
       onClick={onMapClick}
+      center={
+        selectedRestaurant
+          ? { lat: selectedRestaurant.lat, lng: selectedRestaurant.lng }
+          : null
+      }
+      zoom={selectedRestaurant ? 15 : null}
       style={{ outline: "none" }}
     >
-      {restaurants.map((restaurant, i) => (
-        <AdvancedMarker
-          key={i}
-          position={{
-            lat: restaurant.lat,
-            lng: restaurant.lng,
-          }}
-        >
-          <div className="w-16 h-16">
-            <Image src={Glyph} alt="glyph" fill={true} objectFit="contain" />
-          </div>
-        </AdvancedMarker>
-      ))}
+      {variant !== "picker" &&
+        restaurants.map((restaurant, i) => (
+          <AdvancedMarker
+            key={i}
+            position={{
+              lat: restaurant.lat,
+              lng: restaurant.lng,
+            }}
+          >
+            <div className="w-16 h-16">
+              <Image src={Glyph} alt="glyph" fill={true} objectFit="contain" />
+            </div>
+          </AdvancedMarker>
+        ))}
+      {/* @TODO - move marker to separate component file */}
       {newMarker && (
         <>
           <AdvancedMarker

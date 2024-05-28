@@ -9,7 +9,7 @@ import { useUser } from "@/zustand/stores/application/useUser";
 import { useSession } from "next-auth/react";
 import { APIProvider } from "@vis.gl/react-google-maps";
 import CustomMap from "./_components/CustomMap";
-import RestaurantDisplay from "./_components/RestaurantDisplay";
+import RestaurantDetailsCard from "./_components/RestaurantDetailsCard";
 
 const HomePage = () => {
   const modal = useCreateListingModal();
@@ -19,6 +19,7 @@ const HomePage = () => {
 
   const {
     setUserId,
+    rankingId,
     setRankingId,
     setRestaurants,
     restaurants,
@@ -28,7 +29,8 @@ const HomePage = () => {
   const fetchRestaurants = async () => {
     try {
       const res = await fetch(
-        process.env.NEXT_PUBLIC_BASE_URL + "/api/restaurants"
+        process.env.NEXT_PUBLIC_BASE_URL +
+          `/api/restaurants?rankingId=${rankingId}`
       );
       const data = await res.json();
       setRestaurants(data);
@@ -59,11 +61,7 @@ const HomePage = () => {
         </APIProvider>
 
         <Drawer />
-        {selectedRestaurant && (
-          <div className="absolute top-[50%] right-0 w-[500px] h-[30%]">
-            <RestaurantDisplay />
-          </div>
-        )}
+        {selectedRestaurant && <RestaurantDetailsCard />}
         {modal.isOpen && <CreateListingModal />}
         <div
           onClick={() => {

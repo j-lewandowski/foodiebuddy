@@ -1,14 +1,21 @@
 import db from "@/utils/prisma";
-import { getServerSession, Session } from "next-auth";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "@/utils/authOptions";
 import { supabase } from "@/utils/supabase";
 
 export async function GET(request: NextRequest) {
+  const rankingId = request.nextUrl.searchParams.get("rankingId");
+
+  if (!rankingId) return NextResponse.json({});
+
   try {
     const restaurants = await db.restaurant.findMany({
       where: {
-        rankingId: 4,
+        rankingId: parseInt(rankingId),
+      },
+      orderBy: {
+        rating: "desc",
       },
     });
 
@@ -37,6 +44,7 @@ export async function POST(request: NextRequest) {
   const { publicUrl } = res.data;
 
   // @TODO better default image handling
+
   await db.restaurant.create({
     data: {
       rankingId: userId,
@@ -48,6 +56,7 @@ export async function POST(request: NextRequest) {
       recommendedFood: restaurantData.recommendedFood as string[],
       lat: restaurantData.lat as number,
       lng: restaurantData.lng as number,
+      location: restaurantData.location as string,
     },
   });
 
