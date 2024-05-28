@@ -4,6 +4,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { authOptions } from "@/utils/authOptions";
 import { supabase } from "@/utils/supabase";
 
+// @TODO - prepare another storage for different environments
+
 export async function GET(request: NextRequest) {
   const rankingId = request.nextUrl.searchParams.get("rankingId");
 
@@ -12,7 +14,7 @@ export async function GET(request: NextRequest) {
   try {
     const restaurants = await db.restaurant.findMany({
       where: {
-        rankingId: parseInt(rankingId),
+        rankingId: +rankingId,
       },
       orderBy: {
         rating: "desc",
@@ -61,4 +63,28 @@ export async function POST(request: NextRequest) {
   });
 
   return NextResponse.json({}, { status: 201 });
+}
+
+export async function DELETE(request: NextRequest) {
+  const restaurantId = request.nextUrl.searchParams.get("restaurantId");
+  if (!restaurantId) return NextResponse.json({}, { status: 400 });
+  const restaurant = await db.restaurant.findFirst({
+    where: { id: +restaurantId },
+  });
+
+  const imageName = restaurant?.image.split("/").pop();
+
+  if (imageName !== "DefaultImage.png") {
+    try {
+      await supabase.storage
+        .from("foodiebuddy-images")
+        .remove([`${restaurant?.rankingId}/${imageName}`]);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  await db.restaurant.delete({ where: { id: +restaurantId } });
+
+  return NextResponse.json({}, { status: 200 });
 }

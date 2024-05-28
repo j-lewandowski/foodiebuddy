@@ -8,17 +8,33 @@ import { FaTrash, FaXmark } from "react-icons/fa6";
 
 const RestaurantDetailsCard = () => {
   const { selectedRestaurant, setSelectedRestaurant } = useUser();
+
+  const onDelete = async () => {
+    try {
+      await fetch(
+        process.env.NEXT_PUBLIC_BASE_URL +
+          `/api/restaurants?restaurantId=${selectedRestaurant!.id}`,
+        {
+          method: "DELETE",
+        }
+      );
+    } catch (error) {}
+  };
+
   return (
     <div className="z-10 w-[25%] max-w-[380px]  h-[70%] bg-white absolute top-[50%] -translate-y-[50%] right-[.5rem] rounded-lg shadow-xl p-2 py-6 duration-200 border-2 border-black/10">
       <div className="w-full min-h-full h-full flex flex-col justify-start items-center relative">
         <div className="w-full h-full px-2 space-y-4 overflow-y-auto flex flex-col items-center justify-start">
           <div className="w-full text-primary flex items-center justify-between">
             <FaXmark
-              className="h-6 w-6 hover:cursor-pointer "
+              className="h-6 w-6 hover:cursor-pointer"
               onClick={() => setSelectedRestaurant(null)}
             />
             <div className="flex gap-2">
-              <FaTrash className="h-4 w-4 hover:cursor-pointer duration-150 hover:text-rose-500" />
+              <FaTrash
+                className="h-4 w-4 hover:cursor-pointer duration-150 hover:text-rose-500"
+                onClick={onDelete}
+              />
               <AiFillEdit className="h-4 w-4 hover:cursor-pointer duration-150 hover:text-secondary" />
             </div>
           </div>
