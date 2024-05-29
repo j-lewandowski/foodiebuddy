@@ -38,7 +38,8 @@ const CustomMap = ({ variant = "default" }: CustomMapProps) => {
   const { setRestaurantData, restaurantData } = useForm();
   const { setCanContinue, open, setPage, setFlowType } =
     useCreateListingModal();
-  const { restaurants, selectedRestaurant } = useRestaurants();
+  const { restaurants, selectedRestaurant, setSelectedRestaurant } =
+    useRestaurants();
   const { rankingFilter } = useFilters();
 
   useEffect(() => {
@@ -56,6 +57,10 @@ const CustomMap = ({ variant = "default" }: CustomMapProps) => {
       if (e.placeId) {
         e.stop();
       }
+    });
+
+    map.addListener("mousedown", () => {
+      setSelectedRestaurant(null);
     });
   }, [map]);
 
