@@ -1,18 +1,16 @@
 "use client";
 
 import Button3D from "@/app/_components/Button3D";
-import { useUser } from "@/zustand/stores/application/useUser";
+import { useFilters } from "@/zustand/stores/application/useFilters";
 import React from "react";
 
 const TierListing = () => {
-  const { setSelectedTier } = useUser();
+  const { setRankingFilter } = useFilters();
   const onClick = (
     e: React.MouseEvent<HTMLButtonElement | HTMLSpanElement>
   ) => {
     const target = e.target as HTMLButtonElement | HTMLSpanElement;
-    setSelectedTier(
-      target.id as "ALL" | "S" | "A" | "B" | "C" | "D" | "E" | "F"
-    );
+    setRankingFilter(target.id);
   };
 
   return (

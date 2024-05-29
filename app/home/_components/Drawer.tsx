@@ -1,15 +1,14 @@
 "use client";
-import Button3D from "@/app/_components/Button3D";
 import { useDrawer } from "@/zustand/stores/drawer/useDrawerStore";
 import { FaArrowLeft, FaXmark } from "react-icons/fa6";
 import { twMerge } from "tailwind-merge";
 import TierListing from "./TierListing";
-import { useUser } from "@/zustand/stores/application/useUser";
 import RestaurantList from "./RestaurantList";
+import { useFilters } from "@/zustand/stores/application/useFilters";
 
 const Drawer = () => {
   const { close, open, isOpen } = useDrawer();
-  const { selectedTier, setSelectedTier } = useUser();
+  const { setRankingFilter, rankingFilter } = useFilters();
 
   return (
     <div
@@ -26,10 +25,10 @@ const Drawer = () => {
 
         <FaArrowLeft
           className="absolute -top-3 left-1 h-6 w-6 hover:cursor-pointer text-primary"
-          onClick={() => setSelectedTier("ALL")}
+          onClick={() => setRankingFilter(null)}
         />
 
-        {selectedTier === "ALL" ? <TierListing /> : <RestaurantList />}
+        {!rankingFilter ? <TierListing /> : <RestaurantList />}
       </div>
 
       {!isOpen && (

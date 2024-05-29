@@ -1,11 +1,10 @@
 "use client";
-import { useUser } from "@/zustand/stores/application/useUser";
-import { useForm } from "@/zustand/stores/create-listing-modal/useForm";
+import { useRestaurants } from "@/zustand/stores/application/useRestaurants";
 import { Restaurant } from "@prisma/client";
 import { IoNavigate } from "react-icons/io5";
 
 const RestaurantCard = ({ details }: { details: Restaurant }) => {
-  const { setSelectedRestaurant } = useUser();
+  const { setSelectedRestaurant } = useRestaurants();
   return (
     <div
       className="w-full flex flex-col justify-start items-start aspect-square h-auto rounded-lg border-2 border-black/10 hover:scale-105 hover:shadow-xl transition-all duration-150 hover:cursor-pointer"

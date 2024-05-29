@@ -1,13 +1,12 @@
 "use client";
 
 import { getTierName } from "@/utils/getTierName";
-import { useUser } from "@/zustand/stores/application/useUser";
-import Image from "next/image";
+import { useRestaurants } from "@/zustand/stores/application/useRestaurants";
 import { AiFillEdit } from "react-icons/ai";
 import { FaTrash, FaXmark } from "react-icons/fa6";
 
 const RestaurantDetailsCard = () => {
-  const { selectedRestaurant, setSelectedRestaurant } = useUser();
+  const { selectedRestaurant, setSelectedRestaurant } = useRestaurants();
 
   const onDelete = async () => {
     try {

@@ -10,6 +10,7 @@ import { useSession } from "next-auth/react";
 import { APIProvider } from "@vis.gl/react-google-maps";
 import CustomMap from "./_components/CustomMap";
 import RestaurantDetailsCard from "./_components/RestaurantDetailsCard";
+import { useRestaurants } from "@/zustand/stores/application/useRestaurants";
 
 const HomePage = () => {
   const modal = useCreateListingModal();
@@ -17,14 +18,8 @@ const HomePage = () => {
   const { data, status } = useSession();
   const [isLoading, setIsLoading] = useState(true);
 
-  const {
-    setUserId,
-    rankingId,
-    setRankingId,
-    setRestaurants,
-    restaurants,
-    selectedRestaurant,
-  } = useUser();
+  const { setUserId, rankingId, setRankingId } = useUser();
+  const { restaurants, setRestaurants, selectedRestaurant } = useRestaurants();
 
   const fetchRestaurants = async () => {
     try {

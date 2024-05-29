@@ -15,6 +15,9 @@ import Button from "@/app/_components/Button";
 import { useForm } from "@/zustand/stores/create-listing-modal/useForm";
 import { useCreateListingModal } from "@/zustand/stores/create-listing-modal/useCreateListingModal";
 import { useUser } from "@/zustand/stores/application/useUser";
+import { useRestaurants } from "@/zustand/stores/application/useRestaurants";
+import { useFilters } from "@/zustand/stores/application/useFilters";
+import { getTierName } from "@/utils/getTierName";
 
 interface CustomMapProps {
   variant?: "picker" | "default";
@@ -35,7 +38,8 @@ const CustomMap = ({ variant = "default" }: CustomMapProps) => {
   const { setRestaurantData, restaurantData } = useForm();
   const { setCanContinue, open, setPage, setFlowType } =
     useCreateListingModal();
-  const { restaurants, selectedRestaurant } = useUser();
+  const { restaurants, selectedRestaurant } = useRestaurants();
+  const { rankingFilter } = useFilters();
 
   useEffect(() => {
     setCanContinue(!!(restaurantData.lat && restaurantData.lng));
@@ -132,19 +136,31 @@ const CustomMap = ({ variant = "default" }: CustomMapProps) => {
       style={{ outline: "none" }}
     >
       {variant !== "picker" &&
-        restaurants.map((restaurant, i) => (
-          <AdvancedMarker
-            key={i}
-            position={{
-              lat: restaurant.lat,
-              lng: restaurant.lng,
-            }}
-          >
-            <div className="w-16 h-16">
-              <Image src={Glyph} alt="glyph" fill={true} objectFit="contain" />
-            </div>
-          </AdvancedMarker>
-        ))}
+        restaurants
+          .filter((r) => {
+            if (rankingFilter) {
+              return rankingFilter === getTierName(r.rating);
+            }
+            return true;
+          })
+          .map((restaurant, i) => (
+            <AdvancedMarker
+              key={i}
+              position={{
+                lat: restaurant.lat,
+                lng: restaurant.lng,
+              }}
+            >
+              <div className="w-16 h-16">
+                <Image
+                  src={Glyph}
+                  alt="glyph"
+                  fill={true}
+                  objectFit="contain"
+                />
+              </div>
+            </AdvancedMarker>
+          ))}
       {/* @TODO - move marker to separate component file */}
       {newMarker && (
         <>
