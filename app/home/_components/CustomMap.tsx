@@ -131,6 +131,7 @@ const CustomMap = ({ variant = "default" }: CustomMapProps) => {
       defaultZoom={variant === "picker" ? 15 : 6}
       mapId={process.env.NEXT_PUBLIC_GOOGLE_MAP_ID}
       disableDoubleClickZoom={true}
+      gestureHandling={"greedy"}
       onClick={onMapClick}
       center={
         selectedRestaurant

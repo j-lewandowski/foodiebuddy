@@ -15,6 +15,8 @@ export interface RestaurantData {
 interface useFormStore {
   restaurantData: RestaurantData;
   setRestaurantData: (data: RestaurantData) => void;
+  isEditing: boolean;
+  setIsEditing: (v: boolean) => void;
   reset: () => void;
 }
 
@@ -30,5 +32,7 @@ const initialState = {
 export const useForm = create<useFormStore>()((set) => ({
   restaurantData: initialState,
   setRestaurantData: (data) => set({ restaurantData: data }),
+  isEditing: false,
+  setIsEditing: (v) => set({ isEditing: v }),
   reset: () => set({ restaurantData: initialState }),
 }));

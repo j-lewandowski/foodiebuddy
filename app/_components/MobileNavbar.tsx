@@ -20,7 +20,7 @@ const MobileNavbar = () => {
   return (
     <div
       className={twMerge(
-        "w-full h-full px-3 top-2 left-0 fixed md:hidden block z-50",
+        "w-full h-fit px-3 top-2 left-0 fixed md:hidden block z-50",
         isOpen && "px-0 top-0 left-0"
       )}
     >
@@ -28,7 +28,7 @@ const MobileNavbar = () => {
         className={twMerge(
           "bg-primary h-24 flex flex-col items-center justify-center  w-full z-10 shadow-lg rounded-lg duration-200",
           isOpen &&
-            "bg-background w-full h-full items-start pt-6 px-6 shadow-none"
+            "bg-background w-full h-screen items-start pt-6 px-6 shadow-none"
         )}
       >
         <div

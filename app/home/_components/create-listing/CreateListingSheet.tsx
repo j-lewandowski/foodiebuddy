@@ -45,7 +45,7 @@ const CreateListingSheet = () => {
     googleLink,
     setGoogleLink,
   } = useCreateListingModal();
-  const { restaurantData, setRestaurantData } = useForm();
+  const { restaurantData, isEditing, setIsEditing } = useForm();
   const router = useRouter();
   const { rankingId } = useUser();
 
@@ -57,11 +57,12 @@ const CreateListingSheet = () => {
       const res = await fetch(
         process.env.NEXT_PUBLIC_BASE_URL + "/api/restaurants",
         {
-          method: "POST",
+          method: isEditing ? "PUT" : "POST",
           body: JSON.stringify({ ...restaurantData, image: imageKey }),
         }
       );
 
+      setIsEditing(false);
       if (res.status === 201) {
         close();
       } else {

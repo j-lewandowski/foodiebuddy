@@ -15,8 +15,8 @@ const TierListing = () => {
 
   return (
     <>
-      <span className="text-xl font-bold">Wybierz klasę</span>
-      <p className="w-full text-center mt-2 font-medium text-primary">
+      <span className="md:text-xl text-2xl font-bold">Wybierz klasę</span>
+      <p className="w-full text-center mt-2 font-medium text-xl md:text-base text-primary">
         Wybierz klasę knajp, które mam wyświetlić
       </p>
       <div className="w-full h-full overflow-auto flex flex-col items-center mt-8 space-y-6 py-4">

@@ -11,8 +11,8 @@ const RestaurantList = () => {
 
   return (
     <>
-      <span className="text-xl font-bold">Wybierz knajpę</span>
-      <div className="w-full h-full overflow-auto flex flex-col items-center mt-8 space-y-6 py-4 px-3">
+      <span className="md:text-xl text-2xl font-bold">Wybierz knajpę</span>
+      <div className="w-full h-full overflow-auto flex flex-col items-center mt-4 md:mt-8 space-y-6 py-4 px-3">
         {restaurants
           .filter((r) => {
             if (rankingFilter) {

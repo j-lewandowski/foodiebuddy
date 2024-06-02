@@ -13,17 +13,17 @@ const RestaurantCard = ({ details }: { details: Restaurant }) => {
         setSelectedRestaurant(details);
       }}
     >
-      <span className="w-full py-2 text-center text-xl font-semibold text-black">
+      <span className="w-full py-2 text-center text-2xl md:text-xl font-semibold text-black">
         {details.name}
       </span>
       <div className="w-full py-2 flex items-center justify-between divide-x-2 space-x-2">
-        <div className="bg-primary rounded-lg text-white text-center font-semibold text-base w-full flex items-center justify-center">
-          <FaStar className="mr-2" />
+        <div className="bg-primary rounded-lg text-white text-center font-semibold text-xl md:text-base w-full flex items-center justify-center py-2">
+          <FaStar className="mr-2 md:h-4 md:w-4 h-6 w-6" />
           <span>{details.rating.toFixed(1)}</span>
         </div>
 
-        <div className="text-neutral-500 font-semibold text-base flex items-center justify-center w-full">
-          <IoNavigate className="mr-2 h-4 w-4" />
+        <div className="text-neutral-500 font-semibold text-xl md:text-base flex items-center justify-center w-full">
+          <IoNavigate className="mr-2 md:h-4 md:w-4 h-6 w-6" />
           <span>{details.location}</span>
         </div>
       </div>
