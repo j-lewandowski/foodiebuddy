@@ -106,7 +106,7 @@ const CreateListingSheet = () => {
   };
 
   return (
-    <div className="w-[900px] max-w-[90%] h-[650px] max-h-[95%] bg-white z-30 rounded-lg shadow-xl px-12 py-6 relative flex flex-col">
+    <div className="md:w-[900px] md:max-w-[90%] md:h-[650px] md:max-h-[95%] h-full w-full bg-white z-30 rounded-lg shadow-xl px-12 py-6 relative flex flex-col">
       <div className="w-full h-full">{flows[flowType][page]}</div>
 
       {!(
