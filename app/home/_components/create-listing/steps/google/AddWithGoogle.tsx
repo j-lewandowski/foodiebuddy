@@ -4,25 +4,26 @@ import { ChangeEvent } from "react";
 import { FaCircleXmark } from "react-icons/fa6";
 import { FaCheckCircle } from "react-icons/fa";
 
-import { useCreateListingModal } from "@/zustand/stores/create-listing-modal/useCreateListingModal";
+import { useForm } from "@/zustand/stores/create-listing-modal/formStore";
 
 const AddWithGoogle = () => {
-  const { canContinue, setCanContinue, googleLink, setGoogleLink, next } =
-    useCreateListingModal();
-
+  const {
+    googleLink,
+    setGoogleLink,
+    next,
+    setIsNextClickable,
+    isNextClickable,
+  } = useForm();
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setGoogleLink(value);
 
     if (e.target.value.trim() === "") {
-      setCanContinue(false);
+      setIsNextClickable(false);
       return;
     }
-    setCanContinue(
-      e.target.value.includes("www.google.com/maps") ||
-        e.target.value.includes("maps.app.goo.gl") ||
-        e.target.value.includes("www.google.pl/maps")
-    );
+    const pattern = /^https?:\/\/(www\.)?google\.[a-z]{2,3}(\.[a-z]{2})?\/maps/;
+    setIsNextClickable(pattern.test(e.target.value));
   };
 
   const onSubmit = (e: React.FormEvent) => {
@@ -67,13 +68,13 @@ const AddWithGoogle = () => {
         <div
           className={twMerge(
             "absolute right-3 hidden bg-background pl-2",
-            canContinue !== null && "block"
+            isNextClickable !== null && "block"
           )}
         >
-          {canContinue ? (
+          {isNextClickable ? (
             <FaCheckCircle className=" h-5 w-5 text-green-500" />
           ) : (
-            !canContinue &&
+            !isNextClickable &&
             googleLink.length > 0 && (
               <FaCircleXmark className=" h-5 w-5 text-rose-500" />
             )

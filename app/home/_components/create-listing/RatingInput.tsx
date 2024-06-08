@@ -1,6 +1,6 @@
 "use client";
 import IconButton from "@/app/_components/IconButton";
-import { useForm } from "@/zustand/stores/create-listing-modal/useForm";
+import { useForm } from "@/zustand/stores/create-listing-modal/formStore";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Tb123, TbDecimal } from "react-icons/tb";
 import { twMerge } from "tailwind-merge";

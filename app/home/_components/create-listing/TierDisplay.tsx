@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useForm } from "@/zustand/stores/create-listing-modal/useForm";
+import { useForm } from "@/zustand/stores/create-listing-modal/formStore";
 import { getTierName } from "@/utils/getTierName";
 
 const TierDisplay = () => {

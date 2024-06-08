@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Paytone_One, Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "./_components/Navbar";
-import { SessionProvider } from "next-auth/react";
 import Providers from "@/providers/Providers";
+import { APIProvider } from "@vis.gl/react-google-maps";
 
 const font = Poppins({
   subsets: ["latin"],

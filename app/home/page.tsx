@@ -1,19 +1,21 @@
 "use client";
 import Drawer from "./_components/Drawer";
 import { FaPlus } from "react-icons/fa6";
-import CreateListingModal from "./_components/create-listing/CreateListingModal";
-import { useCreateListingModal } from "@/zustand/stores/create-listing-modal/useCreateListingModal";
+import { useModal } from "@/zustand/stores/create-listing-modal/modalStore";
 import { useDrawer } from "@/zustand/stores/drawer/useDrawerStore";
 import { useEffect, useRef, useState } from "react";
-import { useUser } from "@/zustand/stores/application/useUser";
+import { useUser } from "@/zustand/stores/application/userStore";
 import { useSession } from "next-auth/react";
-import { APIProvider } from "@vis.gl/react-google-maps";
-import CustomMap from "./_components/CustomMap";
 import RestaurantDetailsCard from "./_components/RestaurantDetailsCard";
-import { useRestaurants } from "@/zustand/stores/application/useRestaurants";
+import Map from "./_components/maps/Map";
+import { useRestaurants } from "@/zustand/stores/application/restaurantsStore";
+import Modal from "./_components/Modal";
+import MultistepForm from "./_components/create-listing/MultistepForm";
+import MapMarker from "./_components/MapMarker";
+import Mainmap from "./_components/maps/Mainmap";
 
 const HomePage = () => {
-  const modal = useCreateListingModal();
+  const modal = useModal();
   const drawer = useDrawer();
   const { data, status } = useSession();
   const [isLoading, setIsLoading] = useState(true);
@@ -21,26 +23,12 @@ const HomePage = () => {
   const { setUserId, rankingId, setRankingId } = useUser();
   const { restaurants, setRestaurants, selectedRestaurant } = useRestaurants();
 
-  const fetchRestaurants = async () => {
-    try {
-      const res = await fetch(
-        process.env.NEXT_PUBLIC_BASE_URL +
-          `/api/restaurants?rankingId=${rankingId}`
-      );
-      const data = await res.json();
-      setRestaurants(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
     if (data) {
       setUserId(data.user.userId);
       setRankingId(data.user.userId);
     }
     setIsLoading(false);
-    fetchRestaurants();
   }, [data]);
 
   // @TODO - add loader
@@ -51,13 +39,15 @@ const HomePage = () => {
   return (
     <div className="w-full h-screen pt-16">
       <div className="w-full h-full relative">
-        <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}>
-          <CustomMap></CustomMap>
-        </APIProvider>
+        <Mainmap />
 
         <Drawer />
         {selectedRestaurant && <RestaurantDetailsCard />}
-        {modal.isOpen && <CreateListingModal />}
+        {modal.isOpen && (
+          <Modal>
+            <MultistepForm />
+          </Modal>
+        )}
         <div
           onClick={() => {
             modal.open();

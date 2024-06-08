@@ -1,16 +1,16 @@
 "use client";
 
 import { getTierName } from "@/utils/getTierName";
-import { useRestaurants } from "@/zustand/stores/application/useRestaurants";
-import { useCreateListingModal } from "@/zustand/stores/create-listing-modal/useCreateListingModal";
-import { useForm } from "@/zustand/stores/create-listing-modal/useForm";
+import { useRestaurants } from "@/zustand/stores/application/restaurantsStore";
+import { useModal } from "@/zustand/stores/create-listing-modal/modalStore";
+import { useForm } from "@/zustand/stores/create-listing-modal/formStore";
 import { AiFillEdit } from "react-icons/ai";
 import { FaTrash, FaXmark } from "react-icons/fa6";
 
 const RestaurantDetailsCard = () => {
   const { selectedRestaurant, setSelectedRestaurant } = useRestaurants();
-  const { setRestaurantData, setIsEditing } = useForm();
-  const { open, setFlowType, setPage } = useCreateListingModal();
+  const { setRestaurantData, setIsEditing, setFormInputs } = useForm();
+  const { open } = useModal();
 
   const onDelete = async () => {
     try {
@@ -25,9 +25,8 @@ const RestaurantDetailsCard = () => {
   };
 
   const onEdit = () => {
-    setFlowType("manual");
     open();
-    setPage(1);
+    setFormInputs("MANUAL", 1);
     setIsEditing(true);
     setRestaurantData(selectedRestaurant!);
   };

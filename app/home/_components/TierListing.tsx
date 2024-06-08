@@ -1,7 +1,7 @@
 "use client";
 
 import Button3D from "@/app/_components/Button3D";
-import { useFilters } from "@/zustand/stores/application/useFilters";
+import { useFilters } from "@/zustand/stores/application/filtersStore";
 import React from "react";
 
 const TierListing = () => {

@@ -1,14 +1,15 @@
 "use client";
 import Button from "@/app/_components/Button";
 import { FaGoogle } from "react-icons/fa6";
-import { useCreateListingModal } from "@/zustand/stores/create-listing-modal/useCreateListingModal";
+import { useForm } from "@/zustand/stores/create-listing-modal/formStore";
+import Google from "next-auth/providers/google";
 
 const Decision = () => {
-  const { setFlowType, next } = useCreateListingModal();
+  const { setFormInputs } = useForm();
   return (
     <>
-      <div className="w-full h-full flex flex-col items-center">
-        <span className="font-bold text-2xl">
+      <div className="w-full h-full flex flex-col items-center justify-center">
+        <span className="font-bold text-2xl text-center w-full">
           W jaki sposób chcesz dodać knajpę?
         </span>
         <p className="w-[80%] text-center mt-6 font-semibold text-neutral-500">
@@ -16,13 +17,12 @@ const Decision = () => {
           potrzebne dane ręcznie.
         </p>
 
-        <div className="w-full h-full flex flex-col items-center justify-center space-y-8 -mt-20">
+        <div className="w-full md:h-full flex flex-col items-center justify-center space-y-8 md:-mt-20">
           <Button
             variant="dark"
             className="w-[200px] h-16 flex items-center justify-center text-2xl font-semibold"
             onClick={() => {
-              setFlowType("google");
-              next();
+              setFormInputs("GOOGLE", 1);
             }}
           >
             <FaGoogle className="mr-6" />
@@ -33,8 +33,7 @@ const Decision = () => {
           </div>
           <Button
             onClick={() => {
-              setFlowType("manual");
-              next();
+              setFormInputs("MANUAL", 1);
             }}
             variant="light"
             className="w-[200px] h-16 flex items-center justify-around text-2xl font-semibold"

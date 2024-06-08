@@ -4,7 +4,7 @@ import { FaArrowLeft, FaXmark } from "react-icons/fa6";
 import { twMerge } from "tailwind-merge";
 import TierListing from "./TierListing";
 import RestaurantList from "./RestaurantList";
-import { useFilters } from "@/zustand/stores/application/useFilters";
+import { useFilters } from "@/zustand/stores/application/filtersStore";
 
 const Drawer = () => {
   const { close, open, isOpen } = useDrawer();

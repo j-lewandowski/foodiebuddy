@@ -1,14 +1,8 @@
-import { useCreateListingModal } from "@/zustand/stores/create-listing-modal/useCreateListingModal";
-import { useForm } from "@/zustand/stores/create-listing-modal/useForm";
+import { useForm } from "@/zustand/stores/create-listing-modal/formStore";
 import { twMerge } from "tailwind-merge";
 
-interface RestaurantDisplayProps {
-  editable?: boolean;
-}
-
-const RestaurantDisplay = ({ editable = false }: RestaurantDisplayProps) => {
-  const { restaurantData } = useForm();
-  const { setPage } = useCreateListingModal();
+const RestaurantDisplay = () => {
+  const { restaurantData, setPage } = useForm();
 
   const editElement = (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.currentTarget as HTMLDivElement;
@@ -28,7 +22,7 @@ const RestaurantDisplay = ({ editable = false }: RestaurantDisplayProps) => {
         <div
           className={twMerge(
             "w-full h-full bg-cover bg-center rounded-xl",
-            editable && editableStyle
+            editableStyle
           )}
           style={{
             backgroundImage: `url('${
@@ -37,15 +31,15 @@ const RestaurantDisplay = ({ editable = false }: RestaurantDisplayProps) => {
             }')`,
           }}
           id="2"
-          onClick={editable ? editElement : () => {}}
+          onClick={editElement}
         ></div>
         <div
           className={twMerge(
             "bg-primary p-6 absolute h-8 w-8 flex items-center justify-center rounded-full top-3 left-3 z-50",
-            editable && editableStyle
+            editableStyle
           )}
           id="3"
-          onClick={editable ? editElement : () => {}}
+          onClick={editElement}
         >
           <span className="text-white h-fit w-fit font-bold text-center">
             {restaurantData.rating}
@@ -57,10 +51,10 @@ const RestaurantDisplay = ({ editable = false }: RestaurantDisplayProps) => {
         <span
           className={twMerge(
             "font-bold text-2xl rounded-lg p-1",
-            editable && editableStyle
+            editableStyle
           )}
           id="1"
-          onClick={editable ? editElement : () => {}}
+          onClick={editElement}
         >
           {restaurantData.name}
         </span>
@@ -75,10 +69,10 @@ const RestaurantDisplay = ({ editable = false }: RestaurantDisplayProps) => {
         <div
           className={twMerge(
             "grid grid-cols-2 gap-2 mt-2 overflow-auto h-fit max-h-full rounded-lg",
-            editable && editableStyle
+            editableStyle
           )}
           id="4"
-          onClick={editable ? editElement : () => {}}
+          onClick={editElement}
         >
           {restaurantData.recommendedFood.map((r) => (
             <span

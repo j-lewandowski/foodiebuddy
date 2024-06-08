@@ -1,4 +1,4 @@
-import { useForm } from "@/zustand/stores/create-listing-modal/useForm";
+import { useForm } from "@/zustand/stores/create-listing-modal/formStore";
 import { twMerge } from "tailwind-merge";
 import { ChangeEvent, useState } from "react";
 import { FaCheck, FaTrash } from "react-icons/fa6";

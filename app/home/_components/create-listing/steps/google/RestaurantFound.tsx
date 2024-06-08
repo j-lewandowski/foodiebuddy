@@ -1,15 +1,21 @@
 "use client";
-import { useCreateListingModal } from "@/zustand/stores/create-listing-modal/useCreateListingModal";
-import { useForm } from "@/zustand/stores/create-listing-modal/useForm";
-import { useEffect, useState } from "react";
+import { useForm } from "@/zustand/stores/create-listing-modal/formStore";
+import { useEffect, useRef, useState } from "react";
 import { FiCheckCircle, FiXCircle } from "react-icons/fi";
 import { twMerge } from "tailwind-merge";
 
 const RestaurantFound = () => {
-  const { setPage, googleLink, setFlowType } = useCreateListingModal();
-  const { restaurantData, setRestaurantData } = useForm();
+  const {
+    restaurantData,
+    setRestaurantData,
+    reset,
+    googleLink,
+    setFormInputs,
+    setIsNextClickable,
+  } = useForm();
   const [isSuccess, setIsSuccess] = useState<null | boolean>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const timeoutId = useRef<NodeJS.Timeout | null>(null);
 
   const getData = async () => {
     try {
@@ -44,18 +50,23 @@ const RestaurantFound = () => {
   const findRestaurant = async () => {
     const found = await getData();
     setIsLoading(false);
-    setTimeout(() => {
+    timeoutId.current = setTimeout(() => {
       if (found) {
-        setFlowType("manual");
-        setPage(2);
+        setFormInputs("MANUAL", 2);
       } else {
-        setPage(0);
+        reset();
       }
     }, 5000);
   };
 
   useEffect(() => {
     findRestaurant();
+
+    return () => {
+      if (timeoutId.current) {
+        clearTimeout(timeoutId.current);
+      }
+    };
   }, []);
 
   // @TODO - Loading state
@@ -70,6 +81,16 @@ const RestaurantFound = () => {
         `w-full h-full flex items-center justify-center flex-col`,
         isSuccess ? "text-green-500" : "text-rose-500"
       )}
+      onClick={() => {
+        if (timeoutId.current) {
+          clearTimeout(timeoutId.current);
+        }
+        if (isSuccess) {
+          setFormInputs("MANUAL", 2);
+        } else {
+          reset();
+        }
+      }}
     >
       {isSuccess ? (
         <FiCheckCircle className="w-64 h-64"></FiCheckCircle>

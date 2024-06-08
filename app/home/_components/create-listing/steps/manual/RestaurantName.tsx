@@ -1,35 +1,34 @@
 "use client";
 import Input from "@/app/_components/Input";
-import { useForm } from "@/zustand/stores/create-listing-modal/useForm";
+import { useForm } from "@/zustand/stores/create-listing-modal/formStore";
 import { ChangeEvent, useEffect, useState } from "react";
-import { useCreateListingModal } from "@/zustand/stores/create-listing-modal/useCreateListingModal";
 
 const RestaurantName = () => {
-  const { restaurantData, setRestaurantData } = useForm();
+  const { restaurantData, setRestaurantData, next, setIsNextClickable } =
+    useForm();
   const [error, setError] = useState<string>("");
-  const { setCanContinue, next } = useCreateListingModal();
+
+  useEffect(() => {
+    setIsNextClickable(restaurantData.name.trim().length > 0);
+  }, []);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setCanContinue(e.target.value.length > 0);
     setError("");
     setRestaurantData({
       ...restaurantData,
       name: e.target.value,
     });
+    setIsNextClickable(restaurantData.name.trim().length > 0);
   };
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (restaurantData.name.length === 0) {
+    if (restaurantData.name.trim().length === 0) {
       setError("Musisz podać nazwę knajpy");
       return;
     }
     next();
   };
-
-  useEffect(() => {
-    setCanContinue(restaurantData.name.length > 0);
-  }, []);
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">

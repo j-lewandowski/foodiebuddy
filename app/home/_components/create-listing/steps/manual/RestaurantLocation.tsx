@@ -1,6 +1,5 @@
 import React from "react";
-import CustomMap from "../../../CustomMap";
-import { APIProvider } from "@vis.gl/react-google-maps";
+import Minimap from "../../../maps/Minimap";
 
 const RestaurantLocation = () => {
   return (
@@ -8,10 +7,8 @@ const RestaurantLocation = () => {
       <span className="font-bold text-2xl mb-4">
         Wybierz lokalizację knajpy
       </span>
-      <div className="w-full h-full pb-4 rounded-lg">
-        <APIProvider apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}>
-          <CustomMap variant="picker" />
-        </APIProvider>
+      <div className="w-full h-full pb-4 rounded-lg overflow-hidden">
+        <Minimap />
       </div>
     </div>
   );

@@ -1,8 +1,8 @@
 "use client";
 
-import { useFilters } from "@/zustand/stores/application/useFilters";
+import { useFilters } from "@/zustand/stores/application/filtersStore";
 import RestaurantCard from "./RestaurantCard";
-import { useRestaurants } from "@/zustand/stores/application/useRestaurants";
+import { useRestaurants } from "@/zustand/stores/application/restaurantsStore";
 import { getTierName } from "@/utils/getTierName";
 
 const RestaurantList = () => {

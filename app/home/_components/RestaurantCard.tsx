@@ -1,16 +1,20 @@
 "use client";
-import { useRestaurants } from "@/zustand/stores/application/useRestaurants";
+import { useRestaurants } from "@/zustand/stores/application/restaurantsStore";
 import { Restaurant } from "@prisma/client";
+import { useMap } from "@vis.gl/react-google-maps";
 import { FaStar } from "react-icons/fa6";
 import { IoNavigate } from "react-icons/io5";
 
 const RestaurantCard = ({ details }: { details: Restaurant }) => {
   const { setSelectedRestaurant } = useRestaurants();
+  const map = useMap("main");
   return (
     <div
       className="w-full px-1 flex flex-col justify-center items-center rounded-lg border-2 border-black/10 hover:scale-105 hover:shadow-xl transition-all duration-150 hover:cursor-pointer"
       onClick={() => {
         setSelectedRestaurant(details);
+        map?.panTo({ lat: details.lat, lng: details.lng });
+        map?.setZoom(14);
       }}
     >
       <span className="w-full py-2 text-center text-2xl md:text-xl font-semibold text-black">
