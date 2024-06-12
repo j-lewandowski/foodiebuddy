@@ -2,15 +2,18 @@
 
 import Button3D from "@/app/_components/Button3D";
 import { useFilters } from "@/zustand/stores/application/filtersStore";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const TierListing = () => {
   const { setRankingFilter } = useFilters();
+  const router = useRouter();
   const onClick = (
     e: React.MouseEvent<HTMLButtonElement | HTMLSpanElement>
   ) => {
     const target = e.target as HTMLButtonElement | HTMLSpanElement;
-    setRankingFilter(target.id);
+    // setRankingFilter(target.id);
+    router.push(`/map/${target.id}`);
   };
 
   return (

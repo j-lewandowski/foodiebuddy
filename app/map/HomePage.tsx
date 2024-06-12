@@ -1,5 +1,5 @@
 "use client";
-import Drawer from "./_components/Drawer";
+import Drawer from "../_components/Drawer";
 import { FaPlus } from "react-icons/fa6";
 import { useModal } from "@/zustand/stores/create-listing-modal/modalStore";
 import { useDrawer } from "@/zustand/stores/drawer/useDrawerStore";
@@ -41,7 +41,7 @@ const HomePage = () => {
       <div className="w-full h-full relative">
         <Mainmap />
 
-        <Drawer />
+        {/* <Drawer /> */}
         {selectedRestaurant && <RestaurantDetailsCard />}
         {modal.isOpen && (
           <Modal>

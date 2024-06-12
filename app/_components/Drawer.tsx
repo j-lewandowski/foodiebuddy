@@ -2,13 +2,17 @@
 import { useDrawer } from "@/zustand/stores/drawer/useDrawerStore";
 import { FaArrowLeft, FaXmark } from "react-icons/fa6";
 import { twMerge } from "tailwind-merge";
-import TierListing from "./TierListing";
-import RestaurantList from "./RestaurantList";
+import TierListing from "../map/_components/TierListing";
+import RestaurantList from "../map/_components/RestaurantList";
 import { useFilters } from "@/zustand/stores/application/filtersStore";
+import { ReactNode } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
-const Drawer = () => {
+const Drawer = ({ children }: { children: ReactNode }) => {
   const { close, open, isOpen } = useDrawer();
   const { setRankingFilter, rankingFilter } = useFilters();
+  const router = useRouter();
+  const path = usePathname();
 
   return (
     <div
@@ -19,8 +23,11 @@ const Drawer = () => {
     >
       <div className="w-full flex justify-between items-center px-2 ">
         <FaArrowLeft
-          className="h-8 w-8 md:h-6 md:w-6 hover:cursor-pointer text-primary"
-          onClick={() => setRankingFilter(null)}
+          className={twMerge(
+            "h-8 w-8 md:h-6 md:w-6 hover:cursor-pointer text-primary",
+            path === "/map" && "opacity-0 pointer-events-none"
+          )}
+          onClick={() => router.back()}
         />
         <FaXmark
           className="w-8 h-8 md:h-6 md:w-6 hover:cursor-pointer text-primary"
@@ -29,7 +36,7 @@ const Drawer = () => {
       </div>
 
       <div className="w-full h-full flex flex-col items-center py-8">
-        {!rankingFilter ? <TierListing /> : <RestaurantList />}
+        {children}
       </div>
 
       {!isOpen && (

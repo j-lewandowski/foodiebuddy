@@ -15,7 +15,7 @@ export async function middleware(request: NextRequest) {
   }
 
   if (isAuthenticated && publicRoutes.includes(request.nextUrl.pathname)) {
-    return NextResponse.redirect(new URL("/home", request.url));
+    return NextResponse.redirect(new URL("/map", request.url));
   }
 
   return NextResponse.next();
