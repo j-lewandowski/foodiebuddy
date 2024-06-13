@@ -3,13 +3,6 @@ import GoogleProvider from "next-auth/providers/google";
 
 import { NextAuthOptions, User, Session, Awaitable } from "next-auth";
 
-console.log(
-  process.env.GOOGLE_CLIENT_ID,
-  process.env.GOOGLE_CLIENT_SECRET,
-  process.env.NEXTAUTH_SECRET,
-  process.env.NEXTAUTH_URL
-);
-
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
   providers: [
@@ -72,5 +65,5 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET!,
 } satisfies NextAuthOptions;
