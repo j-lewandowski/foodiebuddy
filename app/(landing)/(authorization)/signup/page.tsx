@@ -5,7 +5,7 @@ const SignUpPage = async () => {
   let providers = [];
   try {
     const res = await fetch(
-      process.env.NEXT_PUBLIC_BASE_URL + "api/auth/providers",
+      process.env.NEXT_PUBLIC_BASE_URL + "/api/auth/providers",
       { cache: "no-store" }
     );
     providers = await res.json();

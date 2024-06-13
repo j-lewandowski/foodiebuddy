@@ -55,8 +55,6 @@ const Map = ({ children, zoom, id, onClick, focusedLocation }: MapProps) => {
 
   // Podzial na 3 mapy!!!
 
-  console.log(process.env.NEXT_PUBLIC_GOOGLE_MAP_ID);
-
   return (
     <ReactMap
       id={id}

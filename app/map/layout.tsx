@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Drawer from "../_components/Drawer";
-import HomePage from "./HomePage";
+import HomePage from "./_components/HomePage";
 
 export const metadata: Metadata = {
   title: "Foodiebuddy - Mapa",

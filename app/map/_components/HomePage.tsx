@@ -1,18 +1,15 @@
 "use client";
-import Drawer from "../_components/Drawer";
 import { FaPlus } from "react-icons/fa6";
 import { useModal } from "@/zustand/stores/create-listing-modal/modalStore";
 import { useDrawer } from "@/zustand/stores/drawer/useDrawerStore";
 import { useEffect, useRef, useState } from "react";
 import { useUser } from "@/zustand/stores/application/userStore";
 import { useSession } from "next-auth/react";
-import RestaurantDetailsCard from "./_components/RestaurantDetailsCard";
-import Map from "./_components/maps/Map";
+import RestaurantDetailsCard from "./RestaurantDetailsCard";
 import { useRestaurants } from "@/zustand/stores/application/restaurantsStore";
-import Modal from "./_components/Modal";
-import MultistepForm from "./_components/create-listing/MultistepForm";
-import MapMarker from "./_components/MapMarker";
-import Mainmap from "./_components/maps/Mainmap";
+import Modal from "./Modal";
+import MultistepForm from "./create-listing/MultistepForm";
+import Mainmap from "./maps/Mainmap";
 
 const HomePage = () => {
   const modal = useModal();

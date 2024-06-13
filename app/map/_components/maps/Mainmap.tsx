@@ -50,7 +50,7 @@ const Mainmap = () => {
   return (
     <Map id="main" onClick={onMapClick}>
       {restaurants.map((r) => (
-        <MapMarker key={r.name} position={{ lat: r.lat, lng: r.lng }} />
+        <MapMarker key={r.name + r.id} position={{ lat: r.lat, lng: r.lng }} />
       ))}
       {newMarker && (
         <MapMarker
