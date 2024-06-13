@@ -5,6 +5,8 @@ import SignInButton from "../_components/SignInButton";
 const SignInPage = async () => {
   let providers = await getProviders();
 
+  console.log(providers);
+
   return (
     <AuthContainer>
       {providers &&
