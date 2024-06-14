@@ -31,7 +31,9 @@ const Navbar = async () => {
               <Link href="/signup">
                 <Button variant="dark">Zarejestruj się</Button>
               </Link>
-              <Button variant="ghost">FAQ</Button>
+              <Link href="/faq">
+                <Button variant="ghost">FAQ</Button>
+              </Link>
             </>
           )}
         </ul>

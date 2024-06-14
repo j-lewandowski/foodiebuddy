@@ -4,7 +4,7 @@ import { NextRequest } from "next/server";
 import db from "./utils/prisma";
 
 const secret = process.env.NEXTAUTH_SECRET;
-const publicRoutes = ["/", "/signin", "/signup"];
+const publicRoutes = ["/", "/signin", "/signup", "/faq"];
 
 export async function middleware(request: NextRequest) {
   const token = await getToken({ req: request, secret });
