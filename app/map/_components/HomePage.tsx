@@ -8,8 +8,8 @@ import { useSession } from "next-auth/react";
 import RestaurantDetailsCard from "./RestaurantDetailsCard";
 import { useRestaurants } from "@/zustand/stores/application/restaurantsStore";
 import Modal from "./Modal";
-import MultistepForm from "./create-listing/MultistepForm";
 import Mainmap from "./maps/Mainmap";
+import { WindowsTypes } from "@/zustand/stores/create-listing-modal/modalStore";
 
 const HomePage = () => {
   const modal = useModal();
@@ -17,8 +17,8 @@ const HomePage = () => {
   const { data, status } = useSession();
   const [isLoading, setIsLoading] = useState(true);
 
-  const { setUserId, rankingId, setRankingId } = useUser();
-  const { restaurants, setRestaurants, selectedRestaurant } = useRestaurants();
+  const { setUserId, setRankingId } = useUser();
+  const { selectedRestaurant } = useRestaurants();
 
   useEffect(() => {
     if (data) {
@@ -38,16 +38,11 @@ const HomePage = () => {
       <div className="w-full h-full relative">
         <Mainmap />
 
-        {/* <Drawer /> */}
         {selectedRestaurant && <RestaurantDetailsCard />}
-        {modal.isOpen && (
-          <Modal>
-            <MultistepForm />
-          </Modal>
-        )}
+        {modal.isOpen && <Modal />}
         <div
           onClick={() => {
-            modal.open();
+            modal.setWindow(WindowsTypes.MultistepForm);
             drawer.close();
           }}
           className="absolute bottom-6 right-6 bg-secondary h-16 w-16 rounded-full ease-in-out flex items-center justify-center shadow-lg duration-200 group hover:w-fit hover:px-4 hover:py-2 hover:cursor-pointer"

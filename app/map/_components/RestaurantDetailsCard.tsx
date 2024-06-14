@@ -6,22 +6,15 @@ import { useModal } from "@/zustand/stores/create-listing-modal/modalStore";
 import { useForm } from "@/zustand/stores/create-listing-modal/formStore";
 import { AiFillEdit } from "react-icons/ai";
 import { FaTrash, FaXmark } from "react-icons/fa6";
+import { WindowsTypes } from "@/zustand/stores/create-listing-modal/modalStore";
 
 const RestaurantDetailsCard = () => {
   const { selectedRestaurant, setSelectedRestaurant } = useRestaurants();
   const { setRestaurantData, setIsEditing, setFormInputs } = useForm();
-  const { open } = useModal();
+  const { open, setWindow } = useModal();
 
-  const onDelete = async () => {
-    try {
-      await fetch(
-        process.env.NEXT_PUBLIC_BASE_URL +
-          `/api/restaurants?restaurantId=${selectedRestaurant!.id}`,
-        {
-          method: "DELETE",
-        }
-      );
-    } catch (error) {}
+  const onDelete = () => {
+    setWindow(WindowsTypes.DeleteRestaurant);
   };
 
   const onEdit = () => {
