@@ -11,7 +11,7 @@ import Button from "@/app/_components/Button";
 import { useForm } from "@/zustand/stores/create-listing-modal/formStore";
 import { useModal } from "@/zustand/stores/create-listing-modal/modalStore";
 import { useRestaurants } from "@/zustand/stores/application/restaurantsStore";
-import MapMarker from "../MapMarker";
+import MapMarker from "./MapMarker";
 import { useLocation } from "@/app/hooks/useLocation";
 
 interface MapProps {

@@ -1,7 +1,7 @@
 import { create } from "zustand";
-import MultistepForm from "@/app/map/_components/create-listing/MultistepForm";
+import MultistepForm from "@/app/map/_components/listing/create-listing/MultistepForm";
 import SignOut from "@/app/_components/SignOut";
-import DeleteRestaurant from "@/app/map/_components/DeleteRestaurant";
+import DeleteRestaurant from "@/app/map/_components/listing/create-listing/DeleteRestaurant";
 import { useForm } from "./formStore";
 
 interface ModalStore {

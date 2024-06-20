@@ -2,8 +2,8 @@
 import { useDrawer } from "@/zustand/stores/drawer/useDrawerStore";
 import { FaArrowLeft, FaXmark } from "react-icons/fa6";
 import { twMerge } from "tailwind-merge";
-import TierListing from "../map/_components/TierListing";
-import RestaurantList from "../map/_components/RestaurantList";
+import TierListing from "../map/_components/pages/TierListing";
+import RestaurantList from "../map/_components/listing/RestaurantList";
 import { useFilters } from "@/zustand/stores/application/filtersStore";
 import { ReactNode } from "react";
 import { usePathname, useRouter } from "next/navigation";

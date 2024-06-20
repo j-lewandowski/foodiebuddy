@@ -1,14 +1,14 @@
 import { create } from "zustand";
 
-import RestaurantName from "@/app/map/_components/create-listing/steps/manual/RestaurantName";
-import RestaurantImage from "@/app/map/_components/create-listing/steps/manual/RestaurantImage";
-import RestaurantRating from "@/app/map/_components/create-listing/steps/manual/RestaurantRating";
-import RestaurantRecommendedFood from "@/app/map/_components/create-listing/steps/manual/RestaurantRecommendedFood";
-import RestaurantPreview from "@/app/map/_components/create-listing/steps/RestaurantPreview";
-import AddWithGoogle from "@/app/map/_components/create-listing/steps/google/AddWithGoogle";
-import RestaurantLocation from "@/app/map/_components/create-listing/steps/manual/RestaurantLocation";
-import RestaurantFound from "@/app/map/_components/create-listing/steps/google/RestaurantFound";
-import Decision from "@/app/map/_components/create-listing/steps/Decision";
+import RestaurantName from "@/app/map/_components/listing/create-listing/steps/manual/RestaurantName";
+import RestaurantImage from "@/app/map/_components/listing/create-listing/steps/manual/RestaurantImage";
+import RestaurantRating from "@/app/map/_components/listing/create-listing/steps/manual/RestaurantRating";
+import RestaurantRecommendedFood from "@/app/map/_components/listing/create-listing/steps/manual/RestaurantRecommendedFood";
+import RestaurantPreview from "@/app/map/_components/listing/create-listing/steps/RestaurantPreview";
+import AddWithGoogle from "@/app/map/_components/listing/create-listing/steps/google/AddWithGoogle";
+import RestaurantLocation from "@/app/map/_components/listing/create-listing/steps/manual/RestaurantLocation";
+import RestaurantFound from "@/app/map/_components/listing/create-listing/steps/google/RestaurantFound";
+import Decision from "@/app/map/_components/listing/create-listing/steps/Decision";
 import { ReactNode } from "react";
 
 export interface RestaurantData {

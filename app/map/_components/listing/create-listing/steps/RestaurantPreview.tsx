@@ -1,4 +1,4 @@
-import RestaurantDisplay from "../../RestaurantDisplay";
+import RestaurantDisplay from "../RestaurantDisplay";
 
 const RestaurantPreview = () => {
   return (

@@ -2,7 +2,7 @@
 import Map from "./Map";
 import { useEffect, useState } from "react";
 import { useForm } from "@/zustand/stores/create-listing-modal/formStore";
-import MapMarker from "../MapMarker";
+import MapMarker from "./MapMarker";
 import { MapMouseEvent } from "@vis.gl/react-google-maps";
 
 const Minimap = () => {

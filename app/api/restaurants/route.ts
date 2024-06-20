@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
   try {
     const restaurants = await db.restaurant.findMany({
       where: {
-        rankingId: +rankingId,
+        rankingId: rankingId,
       },
       orderBy: {
         rating: "desc",
@@ -77,7 +77,7 @@ export async function DELETE(request: NextRequest) {
 
   if (!restaurantId) return NextResponse.json({}, { status: 400 });
   const restaurant = await db.restaurant.findFirst({
-    where: { id: +restaurantId },
+    where: { id: restaurantId },
   });
 
   const imageName = restaurant?.image.split("/").pop();
@@ -92,7 +92,7 @@ export async function DELETE(request: NextRequest) {
     }
   }
 
-  await db.restaurant.delete({ where: { id: +restaurantId } });
+  await db.restaurant.delete({ where: { id: restaurantId } });
 
   return NextResponse.json({}, { status: 200 });
 }
@@ -111,7 +111,7 @@ export async function PUT(request: NextRequest) {
 
   if (!restaurantData.id) return NextResponse.json({}, { status: 400 });
   const restaurant = await db.restaurant.findFirst({
-    where: { id: +restaurantData.id },
+    where: { id: restaurantData.id },
   });
 
   const imageName = restaurant?.image.split("/").pop();

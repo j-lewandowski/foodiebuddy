@@ -1,5 +1,5 @@
 import React from "react";
-import RestaurantList from "../_components/RestaurantList";
+import RestaurantList from "../../_components/listing/RestaurantList";
 
 const TierPage = () => {
   return <RestaurantList />;

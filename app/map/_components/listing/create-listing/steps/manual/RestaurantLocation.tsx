@@ -1,5 +1,5 @@
 import React from "react";
-import Minimap from "../../../maps/Minimap";
+import Minimap from "../../../../maps/Minimap";
 
 const RestaurantLocation = () => {
   return (

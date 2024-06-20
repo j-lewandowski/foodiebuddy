@@ -2,12 +2,12 @@
 import { useRestaurants } from "@/zustand/stores/application/restaurantsStore";
 import { useUser } from "@/zustand/stores/application/userStore";
 import Map from "./Map";
-import MapMarker from "../MapMarker";
+import MapMarker from "./MapMarker";
 import { useEffect, useState } from "react";
 import { MapMouseEvent } from "@vis.gl/react-google-maps";
 
 const Mainmap = () => {
-  const { setUserId, rankingId, setRankingId, userId } = useUser();
+  const { rankingId, setRankingId } = useUser();
   const { setRestaurants, restaurants } = useRestaurants();
   const [newMarker, setNewMarker] = useState<{
     lat: number;
@@ -28,9 +28,9 @@ const Mainmap = () => {
     }
   };
 
-  useEffect(() => {
-    fetchRestaurants();
-  }, [rankingId, userId]);
+  // useEffect(() => {
+  //   fetchRestaurants();
+  // }, [rankingId]);
 
   const onMapClick = (e: MapMouseEvent) => {
     const { latLng, placeId } = e.detail;

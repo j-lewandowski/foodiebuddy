@@ -73,7 +73,7 @@ const MobileNavbar = () => {
           {status === "authenticated" ? (
             <>
               <Link href="/signin">Mapka</Link>
-              <Link href="/signup">Profil</Link>
+              {/* <Link href="/signup">Profil</Link> */}
               <div onClick={() => signOut()}>Wyloguj</div>
             </>
           ) : (

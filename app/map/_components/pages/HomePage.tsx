@@ -5,10 +5,10 @@ import { useDrawer } from "@/zustand/stores/drawer/useDrawerStore";
 import { useEffect, useRef, useState } from "react";
 import { useUser } from "@/zustand/stores/application/userStore";
 import { useSession } from "next-auth/react";
-import RestaurantDetailsCard from "./RestaurantDetailsCard";
+import RestaurantDetailsCard from "../listing/RestaurantDetailsCard";
 import { useRestaurants } from "@/zustand/stores/application/restaurantsStore";
-import Modal from "./Modal";
-import Mainmap from "./maps/Mainmap";
+import Modal from "../Modal";
+import Mainmap from "../maps/Mainmap";
 import { WindowsTypes } from "@/zustand/stores/create-listing-modal/modalStore";
 
 const HomePage = () => {
@@ -17,12 +17,11 @@ const HomePage = () => {
   const { data, status } = useSession();
   const [isLoading, setIsLoading] = useState(true);
 
-  const { setUserId, setRankingId } = useUser();
+  const { setRankingId } = useUser();
   const { selectedRestaurant } = useRestaurants();
 
   useEffect(() => {
     if (data) {
-      setUserId(data.user.userId);
       setRankingId(data.user.userId);
     }
     setIsLoading(false);

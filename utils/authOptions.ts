@@ -44,7 +44,11 @@ export const authOptions: NextAuthOptions = {
         await db.ranking.create({
           data: {
             id: newUser.id,
-            authorizedUserId: newUser.id,
+            user: {
+              connect: {
+                id: newUser.id,
+              },
+            },
           },
         });
 

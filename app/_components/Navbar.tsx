@@ -18,7 +18,7 @@ const Navbar = async () => {
           {session ? (
             <>
               <Button variant="ghost">Mapka</Button>
-              <Button variant="ghost">Profil</Button>
+              {/* <Button variant="ghost">Profil</Button> */}
               <Link href="/api/auth/signout">
                 <Button variant="dark">Wyloguj</Button>
               </Link>
